@@ -1,6 +1,8 @@
 # SymfonySkeletton
 
-Squelette d'application (webapp) Symfony 6 avec configuration CAS et LDAP
+Squelette d'application (webapp) Symfony 6 avec configuration CAS, rôles et LDAP dans un premier temps, charte graphique (y compris page d'erreurs), 
+logs, internationalisation, solution de maintenance et lien avec SiAmu et Inst'Amu dans un autre temps.
+
 
 ## Getting started
 
