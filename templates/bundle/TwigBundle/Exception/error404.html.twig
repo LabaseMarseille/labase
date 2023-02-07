@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ app_title|trans }} - Page non trouvée{% endblock %}
+
+
+{% block body %}
+    <h1>Erreur 404 !</h1>
+
+    <p>Une erreur s'est produite ({{ status_code }} {{ status_text }}).</p>
+    <p>On a bien cherché partout, mais vraiment on ne trouve pas la page demandée...</p>
+{% endblock %}

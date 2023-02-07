@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ app_title|trans }} - Accès interdit{% endblock %}
+
+{% block body %}
+    <h1>Erreur 403 !</h1>
+    <p>Une erreur s'est produite ({{ status_code }} {{ status_text }}).</p>
+    <p>N'insistez pas, vous n'êtes pas autorisé.e à accéder à cette page, non non non...</p>
+{% endblock %}

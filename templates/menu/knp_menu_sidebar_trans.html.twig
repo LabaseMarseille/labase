@@ -1,0 +1,21 @@
+{% extends 'knp_menu.html.twig' %}
+
+{# Pour intégrer la traduction auto des labels #}
+{% block label %}
+    {{ item.label|trans(
+        item.getExtra('translation_params', {}),
+        item.getExtra('translation_domain', 'messages')
+    ) }}
+{% endblock %}
+
+{# Pour ajouter les icones de menu #}
+{% block linkElement %}
+    {% import _self as knp_menu %}
+    <a class="nav-link" href="{{ item.uri }}"{{ knp_menu.attributes(item.linkAttributes) }}>
+        {% if item.extra('icon') is not null %}
+            <i class="{{ item.extra('icon') }}" style="font-size: 2rem;"></i><br/>
+        {% endif %}
+        <span>{{ block('label') }}</span>
+    </a>
+{% endblock %}
+

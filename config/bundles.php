@@ -12,5 +12,10 @@ return [
     Symfony\Bundle\MonologBundle\MonologBundle::class => ['all' => true],
     Symfony\Bundle\MakerBundle\MakerBundle::class => ['dev' => true],
     Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle::class => ['all' => true],
-    L3\Bundle\CasGuardBundle\L3CasGuardBundle::class => ['all' => true],
+    loophp\PsrHttpMessageBridgeBundle\PsrHttpMessageBridgeBundle::class => ['all' => true],
+    EcPhp\CasBundle\CasBundle::class => ['all' => true],
+    Amu\RoleBundle\AmuRoleBundle::class => ['all' => true],
+    Amu\CasBundle\AmuCasBundle::class => ['all' => true],
+    Knp\Bundle\MenuBundle\KnpMenuBundle::class => ['all' => true],
+    Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
 ];

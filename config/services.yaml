@@ -4,37 +4,86 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-    cas_login_target: '%env(string:CAS_LOGIN_TARGET)%'
-    cas_logout_target: '%env(string:CAS_LOGOUT_TARGET)%'
-    cas_host: '%env(string:CAS_HOST)%'
-    cas_port: '%env(int:CAS_PORT)%'
-    cas_path: '%env(string:CAS_PATH)%'
-    cas_gateway: '%env(bool:CAS_GATEWAY)%'
-
-l3_cas_guard:
-    host: '%env(string:CAS_HOST)%'
-    path: '%env(string:CAS_PATH)%'
-    port: '%env(int:CAS_PORT)%'
-    ca: '%env(bool:CAS_CA)%'
-    handleLogoutRequest: '%env(bool:CAS_HANDLE_LOGOUT_REQUEST)%'
-    casLogoutTarget: '%env(string:CAS_LOGOUT_TARGET)%'
-    force: '%env(bool:CAS_FORCE)%'
-    gateway: '%env(bool:CAS_GATEWAY)%'
+  ldap_param:
+    rel_dn: '%env(LDAP_RELATIVE_DN)%'
+    pwd: '%env(LDAP_PWD)%'
+    base_dn: '%env(LDAP_BASE_DN)%'
+  siamu:
+    url: '%env(string:SIAMU_WS_URL)%'
+    ws_url_app: '%env(string:SIAMU_WS_URL_APP)%'
+    ws_url_app_source: '%env(string:SIAMU_WS_URL_APP_SOURCE)%'
+    id_app: '%env(string:SIAMU_ID_APP)%'
+    current: '%env(string:SIAMU_CURRENT)%'
 
 services:
-    # default configuration for services in *this* file
-    _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
-    App\:
-        resource: '../src/'
-        exclude:
-            - '../src/DependencyInjection/'
-            - '../src/Entity/'
-            - '../src/Kernel.php'
+  # makes classes in src/ available to be used as services
+  # this creates a service per class whose id is the fully-qualified class name
+  App\:
+    resource: '../src/'
+    exclude:
+      - '../src/DependencyInjection/'
+      - '../src/Entity/'
+      - '../src/Kernel.php'
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+  # add more service definitions when explicit configuration is needed
+  # please note that last definitions always *replace* previous ones
+  app.ldap:
+    class: Symfony\Component\Ldap\Ldap
+    factory:
+      - 'Symfony\Component\Ldap\Ldap'
+      - 'create'
+    arguments:
+      - 'ext_ldap'
+      - connection_string: '%env(LDAP_URL)%' # définition de l'url de connexiion dans le fichier .env.local.php
+        version: 3
+        encryption: 'none'
+  Symfony\Component\Ldap\Ldap: '@app.ldap'
+
+  amu_role:
+    class: Amu\RoleBundle\Service\Role
+    autowire: true
+    arguments:
+      - '%amu_role%'
+    calls:
+      # Pour les rôles définis grâce au ldap
+      - method: setLdap
+        arguments:
+          - "@app.ldap"
+          - "%ldap_param%"
+      # Pour les rôles définis grâce à des adresses IP
+      - method: setIp
+        arguments:
+          - "@request_stack"
+      - method: setEntityManager
+        arguments:
+          - "@doctrine.orm.entity_manager"
+
+  # On override le provider par défaut pour utiliser le provider Amu et les Role
+  cas.userprovider:
+    class: Amu\CasBundle\Security\AmuCasUserProvider
+    arguments:
+      - '@amu_role'
+
+  app.menu_builder:
+    class: App\Menu\MenuBuilder
+    arguments: [ "@knp_menu.factory", "@security.authorization_checker" ]
+
+  app.sidebar_menu:
+    class: Knp\Menu\MenuItem
+    factory: [ "@app.menu_builder", createMainMenu ]
+    arguments: [ "@request_stack" ]
+    tags:
+      - { name: knp_menu.menu, alias: mainMenu }
+
+  App\Service\Siamu:
+    arguments:
+      - '%env(SIAMU_WS_URL)%'
+      - '%env(SIAMU_WS_URL_APP)%'
+      - '%env(SIAMU_WS_URL_APP_SOURCE)%'
+      - '%env(SIAMU_ID_APP)%'
+      - '%env(SIAMU_CURRENT)%'

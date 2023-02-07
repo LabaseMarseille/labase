@@ -1,0 +1,111 @@
+@import "~bootstrap/scss/bootstrap";
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+body {
+  background-color: lightgray;
+}
+
+body {
+  background-color: #EEEEEE;
+}
+
+@media (min-width: 1550px) {
+  main {
+    padding: 115px; // hauteur de la main-navbar (horizontale)
+    min-height: calc(100vh - 44px); // pour coller le pied de page en bas 24px = hauteur du footer
+  }
+  header a.navbar-brand {
+    font-size: 2.5rem;
+    padding-left: 240px;
+    height: 90px;
+    background: no-repeat url("../images/LogoAmuBlanc234.svg");
+  }
+  .sidebar {
+    width: 100%;
+    padding: 106px 0 0; /* Height of navbar */
+  }
+}
+
+@media (max-width: 1549px) {
+  main {
+    padding: 60px 5px 0px 5px; // 186 = hauteur de la main-navbar quand elle est réduite
+    min-height: calc(100vh - 24px); // pour coller le pied de page en bas 24px = hauteur du footer
+  }
+  header a.navbar-brand {
+    font-size: 1rem;
+    padding-left: 70px;
+    height: 35px;
+    background: no-repeat url("../images/LogoAmuBlanc62.svg");
+  }
+  .sidebar {
+    width: 100%;
+    padding: 186px 0 0; /* Height of navbar */
+  }
+}
+
+/* Le header contient les 2 navbar
+ dans lesquelles tous les textes et liens sont blancs
+ */
+header {
+  background-color: #1093D3;
+  color: white;
+}
+
+header a.navbar-brand,
+header a.navbar-brand:hover,
+header .nav-link,
+header .nav-item {
+  color: white !important;
+}
+
+/* Couleur de la navbar du haut */
+#main-navbar {
+  background-color: #1093d3;
+}
+
+#main-navbar .nav-item {
+  margin-left: 25px;
+}
+
+.item-header {
+  text-align: center;
+  height: auto;
+  width: 10rem;
+}
+
+.item-header i {
+  font-size: 1rem;
+}
+
+/* Sidebar du côté, donc */
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: auto;
+  background-color: #334659;
+  width: 115px;
+  min-height: 100vh;
+  z-index: 600;
+  text-align: center;
+}
+
+.sidebar a:hover {
+  text-decoration: underline white;
+  background-color: #334659;
+  color: white;
+}
+
+.sidebar li.active {
+  text-decoration: underline white;
+}
+
+
+footer {
+  background-color: lightgray;
+  text-align: right;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+

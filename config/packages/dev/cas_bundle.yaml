@@ -1,0 +1,38 @@
+cas:
+  base_url: https://ident.univ-amu.fr/cas
+  protocol:
+    login:
+      path: /login
+      allowed_parameters:
+        - service
+        - renew
+        - gateway
+      default_parameters:
+        service: app_index
+    serviceValidate:
+      path: /serviceValidate
+      allowed_parameters:
+        - format
+        - service
+        - ticket
+      default_parameters:
+        format: XML
+    logout:
+      path: /logout
+      allowed_parameters:
+        - service
+      default_parameters:
+        service: app_index
+    proxy:
+      path: /proxy
+      allowed_parameters:
+        - targetService
+        - pgt
+    proxyValidate:
+      path: /proxyValidate
+      allowed_parameters:
+        - format
+        - service
+        - ticket
+      default_parameters:
+        format: XML

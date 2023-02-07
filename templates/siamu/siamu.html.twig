@@ -1,0 +1,62 @@
+{% set alertsWsAppli = siamu_ws.alertsWsAppli %}
+{% set alertsWsAppliSource = siamu_ws.alertsWsAppliSource %}
+
+{% if not siamu_ws.maintenanceModeRequired %}
+    {# Si on est pas en mode maintenance (criticité = 3), on affiche quand même les events avec une criticité plus basse #}
+    <div class="container-fluid" id="siamu-content">
+        {% if alertsWsAppli|length > 0 %}
+
+            {# Boolean si l'évènement est en cours ou pas #}
+            {% set current = date(alertsWsAppli[0]['date_debut'])|date('d/m/Y H:i') < "now"|date('d/m/Y H:i') %}
+
+            <div class="alert alert-warning" role="alert">
+                Un dysfonctionnement est {% if current %}en cours{% else %}à venir{% endif %} sur cette application.<br>
+                {% if not current %}
+                    Début prévu : {{ alertsWsAppli[0]['date_debut']|date('d/m/Y H:i') }}<br>
+                {% endif %}
+                Fin prévue : {{ alertsWsAppli[0]['date_fin']|date('d/m/Y H:i') }}<br>
+                <a class="btn btn-sm btn-danger" data-bs-toggle="collapse" href="#collapse-detail-wsappli" role="button"
+                   aria-expanded="false" aria-controls="collapseExample">
+                    Voir le détail
+                </a>
+                <div class="collapse" id="collapse-detail-wsappli">
+                    {{ alertsWsAppli[0]['description_pub'] }}<br>
+                    Criticité :{% if  alertsWsAppli[0]['criticite'] == 1 %} Faible{% else %} Moyenne{% endif %}<br>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if alertsWsAppliSource|length > 0 %}
+
+            {# Boolean si l'évènement est en cours ou pas #}
+            {% set current = date(alertsWsAppliSource[0]['date_debut'])|date('d/m/Y H:i') < "now"|date('d/m/Y H:i') %}
+
+            <div class="alert alert-warning" role="alert">
+                Un dysfonctionnement est {% if current %}en cours{% else %}à venir{% endif %} sur une application dont
+                dépend cette application.<br>
+                {% if not current %}
+                    Début prévu : {{ alertsWsAppli[0]['date_debut']|date('d/m/Y H:i') }}<br>
+                {% endif %}
+                Fin prévue : {{ alertsWsAppliSource[0]['date_fin']|date('d/m/Y H:i') }}<br>
+                <a class="btn btn-sm btn-danger" data-bs-toggle="collapse" href="#collapse-detail-wsapplisource"
+                   role="button"
+                   aria-expanded="false" aria-controls="collapseExample">
+                    Voir le détail
+                </a>
+                <div class="collapse" id="collapse-detail-wsapplisource">
+                    Application concernée : {{ alertsWsAppliSource[0]['nom appli'] }}<br>
+                    {{ alertsWsAppliSource[0]['description_pub'] }}<br>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    {# Sinon c'est qu'on est en maintenance, et si on est dev on a quand même accès à l'application, donc on affiche un message d'information pour le dev. #}
+{% elseif is_granted('ROLE_DEVELOPER') %}
+    <div class="container-fluid" id="maintenance-dev">
+        <div class="alert alert-danger" role="alert">
+            <p>Attention, l'application est en incident avec criticité forte sur
+                <a target="_blank" href="https://siamu.dev.univ-amu.fr/evenement/">SIAMU</a>.
+                Accès autorisé (ROLE_DEVELOPER).</p>
+        </div>
+    </div>
+{% endif %}

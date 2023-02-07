@@ -1,0 +1,5 @@
+amu_role:
+  rules:
+    - { name: ROLE_DEVELOPER,         type: ldap,  rule: '(&(memberof=cn=amu:svc:dosi:dvpt:tous,ou=groups,dc=univ-amu,dc=fr)(uid=login))' }
+    - { name: ROLE_ALLOWED_TO_SWITCH, type: login, rule: [ 'mubeda', 'a03a2867', 'nicolau.b' ] }
+    - { name: ROLE_ADMIN,             type: login, rule: [ 'nicolau.b' ] }

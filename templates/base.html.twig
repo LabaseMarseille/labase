@@ -1,19 +1,94 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{{ app_title|trans }}{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('build/images/favicon.ico') }}"/>
+    {# Run `composer require symfony/webpack-encore-bundle`
+       and uncomment the following Encore helpers to start using Symfony UX #}
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+    {# Recommandation BS https://getbootstrap.com/docs/5.2/getting-started/introduction/#responsive-meta-tag #}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div>
+    <a class="visually-hidden-focusable" href="#sidebarMenu">{{ 'app.goMenu'|trans }}</a>
+    <a class="visually-hidden-focusable" href="#main-content">{{ 'app.goContent'|trans }}</a>
+</div>
+<header>
+    <!-- Sidebar -->
+    <nav id="sidebarMenu"
+         class="collapse navbar-collapse  d-lg-block sidebar .navbar-nav navbar-nav-scroll"
+    >
+        <div>
+            {% block app_menu %}
+                {{ knp_menu_render('mainMenu', {'template': 'menu/knp_menu_sidebar_trans.html.twig', 'currentClass': 'active'}) }}
+            {% endblock %}
+        </div>
+    </nav>
+    <!-- Sidebar -->
+
+    <!-- Navbar Entête-->
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light fixed-top"
+            {{ is_granted('ROLE_PREVIOUS_ADMIN') ? 'style="background-color: red !important"' }}>
+        <div class="container-fluid">
+            <!-- Brand -->
+            <a href="/" class="navbar-brand">
+                | {{ app_title|trans }}
+            </a>
+            <!-- Toggle button -->
+            <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-target="#headerMenu"
+                    data-bs-toggle="collapse"
+                    aria-controls="sidebarMenu"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Right links -->
+            <div class="collapse navbar-collapse justify-content-end" id="headerMenu">
+                <ul class="nav nav-pills">
+                    <li class="nav-item nav-item-option item-header">
+                        <a class="nav-link"
+                           href="{% if app.user %}{{ path('app_index') }}{% else %}{{ path('cas_bundle_login') }}{% endif %}">
+                            <i class="bi bi-person-circle"></i>
+                            <br>
+                            <span class="icon-text">{% if app.user %}{{ app.user.username }}{% else %}Non connecté{% endif %}</span>
+                        </a>
+                    </li>
+
+                    {# ENDBLOCK --------------  IDENTIFICATION USER --------------  #}
+
+                    <li class="nav-item nav-item-option">
+                        <a class="nav-link ent" href="https://ent.univ-amu.fr/" target="_blank">ENT AMU</a>
+                    </li>
+
+                    <li class="nav-item nav-item-option item-header">
+                        <a class="nav-link" href="{{ path('cas_bundle_logout') }}"><i class="bi bi-box-arrow-right"></i><br><span
+                                    class="icon-text">Logout</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Sidebar -->
+
+</header>
+<main>
+    {% include 'siamu/siamu.html.twig' %}
+    <div class="container" id="main-content">
         {% block body %}{% endblock %}
-    </body>
+    </div>
+</main>
+<footer><a href="https://dirnum.univ-amu.fr/fr/pole-developpement">{{ 'app.footer'|trans }}</a></footer>
+</body>
 </html>
