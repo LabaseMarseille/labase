@@ -41,6 +41,15 @@ npm run build ## dev
 - Définir vos access_control suivant vos routes dans config/packages/security.yaml
 - Ajouter vos menu dans src/Menu/MenuBuilder.php
 
+On lance le serveur de développement
+```bash
+symfony serve
+```
+
+Avec la configuration par défaut, l'accueil est public et non-authentifié.
+Pour lancer l'authentification, allez sur /admin.
+
+
 ## (Doc incomplète : Ne pas faire !! ) Installation pas à pas
 
 ### Création du projet
