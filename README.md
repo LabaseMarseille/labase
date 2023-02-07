@@ -30,12 +30,12 @@ Cette installation comprend :
 git clone ...
 cd ## dans le dossier
 composer update ## ou install si vous avez des bugs
-cp .env .env.local
-npm install ## On peut tenter une update 
-npm run build ## dev
+composer dump-env dev ## pour générer le .env.local
+npm install ## ou yarn install (ou update si vous voulez récupérer les dernières versions des packages... Mais possibilité de bug ?)
+npm run build ## ou yarn build
 ```
 
-- Définir vos variables d'environnement dans le .env.local (database, ldap, ws_siamu)
+- Définir vos variables d'environnement dans le .env.local.php (database, ldap, ws_siamu)
 - Définir vos roles dans config/packages/amu_role.yaml
 - Définir vos variables twig (nom de l'appli...) dans config/packages/twig.yaml
 - Définir vos access_control suivant vos routes dans config/packages/security.yaml
