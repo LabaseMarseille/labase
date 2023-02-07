@@ -1,8 +1,3 @@
 cas_bundle:
   resource: "@AmuCasBundle/Resources/config/routes/routes.php"
   prefix: /cas
-
-#cas_bundle_login:
-#    path: /cas/login
-#    controller: App\Controller\Login
-#
