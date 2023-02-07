@@ -50,6 +50,9 @@ Avec la configuration par défaut, l'accueil est public et non-authentifié.
 Pour lancer l'authentification, allez sur /admin.
 
 
+- Pour tester l'impersonification, dans l'url, ajouter ?_switch_user=uid 
+- Pour quitter l'impersonification, dans l'url, ajouter ?_switch_user=_exit 
+
 ## (Doc incomplète : Ne pas faire !! ) Installation pas à pas
 
 ### Création du projet

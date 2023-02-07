@@ -16,6 +16,20 @@
                 <li>{{ role }}</li>
             {% endfor %}
         </ul>
+        Mes attributs :
+        <ul>
+            {% for key, attribute in app.user.attributes %}
+                <li>
+                    {{ key }} :
+                    {% if attribute is  iterable %}
+                        Array
+                    {% else %}
+                        {{ attribute }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+
     {% else %}
         <p>Vous n'êtes pas connecté</p>
     {% endif %}
