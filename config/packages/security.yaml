@@ -18,11 +18,13 @@ security:
         csrf_token_generator: security.csrf.token_manager
 
   access_control:
-    - { path: ^/admin, roles: ROLE_CAS_AUTHENTICATED } # Partie cassifié
-    - { path: ^/cas, roles: PUBLIC_ACCESS } # Obligatoire.
-    - { path: ^/maintenance, roles: PUBLIC_ACCESS } # Si vous avez une partie de votre application non-cassifié
-    - { path: ^/, roles: PUBLIC_ACCESS } # Si vous avez une partie de votre application non-cassifié
-  #    - { path: ^/, roles: ROLE_CAS_AUTHENTICATED } # Si votre application est full-cassifié
+    - { path: ^/cas, roles: PUBLIC_ACCESS } # OBLIGATOIRE.
+    - { path: ^/maintenance, roles: PUBLIC_ACCESS } # Pour SIAMU
+    - { path: ^/, roles: ROLE_CAS_AUTHENTICATED } # Si votre application est full-cassifié
+
+    ## Si vous avez des pages publics, ex:
+    # - { path: ^/public, roles: PUBLIC_ACCESS }
+    # - { path: ^/private, roles: ROLE_CAS_AUTHENTICATED }
 
 when@test:
   security:
