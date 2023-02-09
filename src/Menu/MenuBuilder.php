@@ -26,7 +26,7 @@ final class MenuBuilder implements ContainerAwareInterface
     public function createMainMenu(RequestStack $requestStack): ItemInterface
     {
         $menu = $this->factory->createItem('root');
-        $menu->setChildrenAttribute('class', 'nav nav-sidebar navbar-nav justify-content-center');
+        $menu->setChildrenAttribute('class', ' navbar-nav');
         $activeFound = false;
         // Accueil
         $menu
@@ -40,6 +40,26 @@ final class MenuBuilder implements ContainerAwareInterface
                 ->setExtras(['icon' => 'bi bi-file-lock', 'class' => 'navitem'])
                 ->setAttribute('class', 'nav-item');
         }
+
+        return $menu;
+    }
+
+    public function createTopMenu(RequestStack $requestStack): ItemInterface
+    {
+        $menu = $this->factory->createItem('root');
+        $menu->setChildrenAttribute('class', ' navbar-nav');
+        $activeFound = false;
+        // Accueil
+        $menu
+            ->addChild('Accueil', ['route' => 'app_index'])
+            ->setExtras(['icon' => 'bi bi-house-door'])
+            ->setAttribute('class', 'nav-item');
+
+        $menu
+            ->addChild('ENT')
+            ->setUri('https://ent.univ-amu.fr')
+            ->setAttribute('class', 'nav-item');
+
 
         return $menu;
     }

@@ -80,6 +80,13 @@ services:
     tags:
       - { name: knp_menu.menu, alias: mainMenu }
 
+  app.topbar_menu:
+    class: Knp\Menu\MenuItem
+    factory: [ "@app.menu_builder", createTopMenu ]
+    arguments: [ "@request_stack" ]
+    tags:
+      - { name: knp_menu.menu, alias: topMenu }
+
   App\Service\Siamu:
     arguments:
       - '%env(SIAMU_WS_URL)%'

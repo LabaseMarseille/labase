@@ -13,8 +13,13 @@ $text-color-navbar: #ddd;
   color: #fff;
   --bs-navbar-padding-y: 0rem;
 
+  .container-fluid {
+    padding-right: 0;
+  }
+
   .nav-item {
     border-left: 1px solid #0f81ba;
+    height: 72px;
 
     .nav-link {
       padding: 1.375rem 1.5rem;
