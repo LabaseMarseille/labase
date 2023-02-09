@@ -33,18 +33,6 @@ final class MenuBuilder implements ContainerAwareInterface
             ->addChild('Accueil', ['route' => 'app_index'])
             ->setExtras(['icon' => 'bi bi-house-door'])
             ->setAttribute('class', 'nav-item');
-        // Admin
-        /*        if ($this->authorizationChecker->isGranted('ROLE_USER')) {
-                    $menu->addChild('menu.admin', ['route' => 'default_admin'])
-                        ->setExtras(['icon' => 'bi bi-wrench', 'class' => 'navitem']);
-                    $menu['menu.admin']->setAttribute('class', 'nav-item');
-
-                    if (str_starts_with($requestStack->getCurrentRequest()->getPathInfo(), '/admin')) {
-                        $menu->getChild('menu.admin')->setCurrent(true);
-                        $menu['menu.admin']->setAttribute('class', 'nav-item');
-                        $activeFound = true;
-                    };
-                }*/
 
         if ($this->authorizationChecker->isGranted('ROLE_CAS_AUTHENTICATED')) {
             $menu

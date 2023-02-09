@@ -2,7 +2,7 @@
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 
 $topbar-height: 72px;
-$text-color-navbar: #fff;
+$text-color-navbar: #ddd;
 
 // TOP BAR :
 
@@ -20,6 +20,14 @@ $text-color-navbar: #fff;
       padding: 1.375rem 1.5rem;
       font-size: 18px;
       color: $text-color-navbar;
+
+      &:hover {
+        color: white;
+
+        i {
+          color: white;
+        }
+      }
     }
   }
 }
@@ -71,8 +79,9 @@ $text-color-navbar: #fff;
         text-decoration: none;
         padding: 20px 16px;
         color: $text-color-navbar;
-        //display: flex;
+        display: flex;
         flex-direction: column;
+        width: 80px;
 
 
         &:hover {

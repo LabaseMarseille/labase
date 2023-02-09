@@ -19,32 +19,9 @@
 <body>
 <header>
     <nav id="sidebar" class="navbar navbar-expand-lg ">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="bi bi-house-door-fill"></i>
-                    <span>Accueil</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="bi bi-file-earmark-lock-fill"></i>
-                    <span>Admin</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="bi bi-bootstrap-fill"></i>
-                    <span>Toto</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="bi bi-boxes"></i>
-                    <span>Box</span>
-                </a>
-            </li>
-        </ul>
+        {% block app_menu %}
+            {{ knp_menu_render('mainMenu', {'template': 'menu/knp_menu_sidebar_trans.html.twig', 'currentClass': 'active'}) }}
+        {% endblock %}
     </nav>
 
     <nav id="topbar" class="navbar navbar-expand-lg ">
