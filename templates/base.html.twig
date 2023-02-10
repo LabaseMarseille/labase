@@ -18,13 +18,8 @@
 </head>
 <body>
 <header>
-    <nav id="sidebar" class="navbar navbar-expand-lg ">
-        {% block app_menu %}
-            {{ knp_menu_render('mainMenu', {'template': 'menu/knp_menu_sidebar_trans.html.twig', 'currentClass': 'active'}) }}
-        {% endblock %}
-    </nav>
-
-    <nav id="topbar" class="navbar navbar-expand-lg ">
+    <nav id="topbar"
+         class="navbar navbar-expand-lg fixed-top {% if is_granted('ROLE_PREVIOUS_ADMIN') %}bg-danger{% else %}bg-amu-main{% endif %}">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img id="navbar-brand-img" src="{{ asset('build/images/LogoAmuBlanc62.svg') }}" alt="logo AMU">
@@ -39,14 +34,24 @@
             </div>
         </div>
     </nav>
-
 </header>
-<main>
-    {#    {% include 'siamu/siamu.html.twig' %} #}
-    {#    <div class="container-fluid" id="main-content" style="border: #000000 1px solid"> #}
-    {#        {% block body %}{% endblock %} #}
-    {#    </div> #}
-</main>
-{# <footer><a target="_blank" href="https://dirnum.univ-amu.fr/fr/pole-developpement">{{ app_footer|trans }}</a></footer> #}
+<div class="main-container">
+    <nav id="sidebar" class="navbar navbar-expand-lg ">
+        {% block app_menu %}
+            {{ knp_menu_render('mainMenu', {'template': 'menu/knp_menu_sidebar_trans.html.twig', 'currentClass': 'active'}) }}
+        {% endblock %}
+    </nav>
+    <main>
+        <div class="main-content container-fluid">
+            {% include 'siamu/siamu.html.twig' %}
+            {% block body %}{% endblock %}
+            <table class="table">
+            </table>
+        </div>
+    </main>
+</div>
+
+<footer><a target="_blank" href="https://dirnum.univ-amu.fr/fr/pole-developpement">{{ app_footer|trans }}</a>
+</footer>
 </body>
 </html>

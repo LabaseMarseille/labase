@@ -21,14 +21,12 @@ final class MenuBuilder implements ContainerAwareInterface
     {
     }
 
-    // Doc sur les méthodes du menu https://github.com/KnpLabs/KnpMenu/blob/master/doc/01-Basic-Menus.md
-    // Menu responsive (mais KO) https://www.pierre-giraud.com/bootstrap-apprendre-cours/barre-navigation/
+    // https://github.com/KnpLabs/KnpMenu/blob/master/doc/01-Basic-Menus.md
     public function createMainMenu(RequestStack $requestStack): ItemInterface
     {
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttribute('class', ' navbar-nav');
-        $activeFound = false;
-        // Accueil
+
         $menu
             ->addChild('Accueil', ['route' => 'app_index'])
             ->setExtras(['icon' => 'bi bi-house-door'])
@@ -48,11 +46,14 @@ final class MenuBuilder implements ContainerAwareInterface
     {
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttribute('class', ' navbar-nav');
-        $activeFound = false;
-        // Accueil
+
         $menu
-            ->addChild('Accueil', ['route' => 'app_index'])
-            ->setExtras(['icon' => 'bi bi-house-door'])
+            ->addChild('Menu 1', ['route' => 'app_index'])
+            ->setExtras(['icon' => 'bi bi-1-circle-fill'])
+            ->setAttribute('class', 'nav-item');
+        $menu
+            ->addChild('Menu 2', ['route' => 'app_index'])
+            ->setExtras(['icon' => 'bi bi-2-circle-fill'])
             ->setAttribute('class', 'nav-item');
 
         $menu
@@ -60,6 +61,11 @@ final class MenuBuilder implements ContainerAwareInterface
             ->setUri('https://ent.univ-amu.fr')
             ->setAttribute('class', 'nav-item');
 
+        $menu
+            ->addChild('Logout', ['route' => 'cas_bundle_logout'])
+            ->setExtras(['icon' => 'bi bi-box-arrow-right'])
+            ->setAttribute('class', 'nav-item')
+            ->setLabel('Déconnexion');
 
         return $menu;
     }

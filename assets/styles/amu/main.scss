@@ -1,0 +1,40 @@
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+footer {
+  align-items: center;
+  margin-left: $sidebar-width;
+  padding: 1.25rem 2.5rem;
+  display: flex;
+  justify-content: flex-end;
+  background-color: #e6e6e6;
+  border-top: 1px solid #ddd;
+  height: 72px;
+}
+
+main {
+  padding-left: $sidebar-width;
+  padding-top: $topbar-height;
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  transition: .3s;
+
+  .main-content {
+    padding: 20px;
+  }
+}
+
+.bg-amu-main {
+  background-color: $amu-main;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
