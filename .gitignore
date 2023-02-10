@@ -14,7 +14,7 @@
 ###< phpunit/phpunit ###
 
 ###> IDEA ###
-/.idea/
+#/.idea/
 ###< IDEA ###
 
 ###> symfony/webpack-encore-bundle ###
