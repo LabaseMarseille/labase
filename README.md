@@ -42,6 +42,7 @@ npm run build ## ou yarn build
 - Ajouter vos menu dans src/Menu/MenuBuilder.php
 
 On lance le serveur de développement
+
 ```bash
 symfony serve
 ```
@@ -49,9 +50,8 @@ symfony serve
 Avec la configuration par défaut, l'accueil est public et non-authentifié.
 Pour lancer l'authentification, allez sur /admin.
 
-
-- Pour tester l'impersonification, dans l'url, ajouter ?_switch_user=uid 
-- Pour quitter l'impersonification, dans l'url, ajouter ?_switch_user=_exit 
+- Pour tester l'impersonification, dans l'url, ajouter ?_switch_user=uid
+- Pour quitter l'impersonification, dans l'url, ajouter ?_switch_user=_exit
 
 ## Installation pas à pas
 
@@ -78,19 +78,29 @@ https://carpe-koi.univ-amu.fr/amu-svc-dosi-dvpt-tous/amu-svc-dosi-dvpt-php/bundl
 
 - Récupérer le CSS dans le skeleton
 - Installer KnpMenuBundle et définir les services dans services.yaml
-```yaml
-  app.menu_builder:
-    class: App\Menu\MenuBuilder
-    arguments: [ "@knp_menu.factory", "@security.authorization_checker" ]
 
-  app.sidebar_menu:
-    class: Knp\Menu\MenuItem
-    factory: [ "@app.menu_builder", createMainMenu ]
-    arguments: [ "@request_stack" ]
-    tags:
-      - { name: knp_menu.menu, alias: mainMenu }
+```yaml
+app.menu_builder:
+  class: App\Menu\MenuBuilder
+  arguments: [ "@knp_menu.factory", "@security.authorization_checker" ]
+
+app.sidebar_menu:
+  class: Knp\Menu\MenuItem
+  factory: [ "@app.menu_builder", createMainMenu ]
+  arguments: [ "@request_stack" ]
+  tags:
+    - { name: knp_menu.menu, alias: mainMenu }
+
+app.topbar_menu:
+  class: Knp\Menu\MenuItem
+  factory: [ "@app.menu_builder", createTopMenu ]
+  arguments: [ "@request_stack" ]
+  tags:
+    - { name: knp_menu.menu, alias: topMenu }
 ```
+
 - Définir les variables twig dans twig.yaml
+
 ```yaml
 twig:
   default_path: '%kernel.project_dir%/templates'
@@ -98,14 +108,18 @@ twig:
     app_title: 'Nom Application'
     app_footer: 'DirNum - Pôle Développement - Aix-Marseille Université'
 ```
+
 - Récupérer les templates twig dans le skeleton (base.html.twig et menu/knp....html.twig)
 
-(Attention, dans le base.html.twig il y a un include sur siamu.html.twig, si vous ne l'utilisez pas, il faut le supprimer)
+(Attention, dans le base.html.twig il y a un include sur siamu.html.twig, si vous ne l'utilisez pas, il faut le
+supprimer)
+
 - Récupérer les templates d'erreurs dans templates/bundles/TwigBundle/Exception
 
 #### SIAMU WS
 
-- Ajouter les parameters et définir les variables d'environnement associées
+- Ajouter les parameters
+
 ```yaml
   siamu:
     url: '%env(string:SIAMU_WS_URL)%'
@@ -114,8 +128,22 @@ twig:
     id_app: '%env(string:SIAMU_ID_APP)%'
     current: '%env(string:SIAMU_CURRENT)%'
 ```
-- Récupérer le service Service/Siamu.php et le subscriber EventSubscriber/SiamuSubscriber.php 
+
+- définir les variables d'environnement associées (normalement il y a juste l'URL et l'ID à définir ici)
+
+```dotenv
+###> WS SIAMU ###
+SIAMU_WS_URL="https://.....fr/ws/"
+SIAMU_WS_URL_APP="ws_appli"
+SIAMU_WS_URL_APP_SOURCE="ws_appli_source"
+SIAMU_ID_APP=0000
+SIAMU_CURRENT=false
+###< WS SIAMU ###
+```
+
+- Récupérer le service Service/Siamu.php et le subscriber EventSubscriber/SiamuSubscriber.php
 - Définir le service dans services.yaml
+
 ```yaml
 App\Service\Siamu:
   arguments:
@@ -125,7 +153,9 @@ App\Service\Siamu:
     - '%env(SIAMU_ID_APP)%'
     - '%env(SIAMU_CURRENT)%'
 ```
+
 - Passer le service à Twig
+
 ```yaml
 twig:
   default_path: '%kernel.project_dir%/templates'
@@ -133,5 +163,6 @@ twig:
     #...
     siamu_ws: '@App\Service\Siamu'
 ```
+
 - Récupérer les templates dans templates/siamu
 - Récupérer SiamuController
