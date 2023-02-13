@@ -7,11 +7,16 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class SiamuSubscriber implements EventSubscriberInterface
 {
 
-    public function __construct(private readonly Siamu $siamu, private readonly Security $security)
+    public function __construct(
+        private readonly Siamu                 $siamu,
+        private readonly Security              $security,
+        private readonly UrlGeneratorInterface $router
+    )
     {
     }
 
@@ -32,10 +37,12 @@ class SiamuSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if (!$request->isXmlHttpRequest() && $request->getPathInfo() !== '/maintenance') {
+        // Si ce n'est pas une requête ajax, et si on n'est pas sur la page de login CAS ou déjà sur la page de maintenance
+        // Dans ce cas on peut rediriger vers la page de maintenance
+        if (!$request->isXmlHttpRequest() && !str_contains($request->getPathInfo(), '/cas/') && !str_contains($request->getPathInfo(), 'maintenance')) {
             if ($this->siamu->isMaintenanceModeRequired()) {
                 // on redirige vers la page de maintenance
-                $event->setResponse(new RedirectResponse('/maintenance'));
+                $event->setResponse(new RedirectResponse($this->router->generate('app_siamu_maintenance')));
             }
         }
     }

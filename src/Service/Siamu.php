@@ -15,6 +15,7 @@ class Siamu
         private readonly string              $urlAppSource,
         private readonly string              $idApp,
         private readonly string              $current,
+        private readonly bool                $forceMaintenance,
         private readonly HttpClientInterface $client
     )
     {
@@ -56,10 +57,17 @@ class Siamu
     }
 
     /**
+     * Vérifie si le site doit être en mode maintenance.
+     * Pour qu'il soit en maintenance, il faut qu'il y ait au moins un évènement de criticité 3
+     * Ou que l'on ai défini la variable d'environnement APP_FORCE_MAINTENANCE à true
      * @return bool
      */
     public function isMaintenanceModeRequired(): bool
     {
+        if ($this->forceMaintenance) {
+            return true;
+        }
+
         // On récupère les 2 web-services
         $wsAppli = $this->getAlertsWsAppli();
         $wsAppliSource = $this->getAlertsWsAppliSource();

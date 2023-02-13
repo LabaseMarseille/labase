@@ -8,12 +8,7 @@ parameters:
     rel_dn: '%env(LDAP_RELATIVE_DN)%'
     pwd: '%env(LDAP_PWD)%'
     base_dn: '%env(LDAP_BASE_DN)%'
-  siamu:
-    url: '%env(string:SIAMU_WS_URL)%'
-    ws_url_app: '%env(string:SIAMU_WS_URL_APP)%'
-    ws_url_app_source: '%env(string:SIAMU_WS_URL_APP_SOURCE)%'
-    id_app: '%env(string:SIAMU_ID_APP)%'
-    current: '%env(string:SIAMU_CURRENT)%'
+  force_maintenance: '%env(bool:APP_FORCE_MAINTENANCE)%'
 
 services:
   # default configuration for services in *this* file
@@ -94,3 +89,4 @@ services:
       - '%env(SIAMU_WS_URL_APP_SOURCE)%'
       - '%env(SIAMU_ID_APP)%'
       - '%env(SIAMU_CURRENT)%'
+      - '%force_maintenance%'
