@@ -34,7 +34,7 @@ final class MenuBuilder implements ContainerAwareInterface
 
         if ($this->authorizationChecker->isGranted('ROLE_CAS_AUTHENTICATED')) {
             $menu
-                ->addChild('Admin', ['route' => 'app_admin_index'])
+                ->addChild("Administration", ['route' => 'app_admin_index'])
                 ->setExtras(['icon' => 'bi bi-file-lock', 'class' => 'navitem'])
                 ->setAttribute('class', 'nav-item');
         }

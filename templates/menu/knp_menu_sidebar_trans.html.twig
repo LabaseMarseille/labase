@@ -16,8 +16,6 @@
         {% if item.extra('icon') is not null %}
             <i class="{{ item.extra('icon') }}"></i>
         {% endif %}
-        <span>
-        {{ block('label') }}
-        </span>
+        <span>{{ block('label') }}</span>
     </a>
 {% endblock %}
