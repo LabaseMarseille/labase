@@ -1,0 +1,18 @@
+app_logout: Logout
+app_home: Home
+app_footer: DirNum - Development Center - Aix-Marseille University
+say_hello: 'Hello {name}! You are connected.'
+msg_not_connected: You are not connected.
+siamu_alert_live: There is an incident on this application.
+siamu_alert_coming: An incident is expected on this application.
+siamu_alert_source_live: There is an incident on an application on which this application depends.
+siamu_alert_source_coming: An incident is expected on an application on which this application depends.
+siamu_alert_scheduledStart: Scheduled start
+siamu_alert_expectedEnd: Expected end
+siamu_button_details: See details
+siamu_criticity: Criticality
+siamu_criticity_faible: Low
+siamu_criticity_moyenne: Medium
+siamu_criticity_forte: High
+siamu_affected_application: Affected application
+siamu_developer_access: Attention, the application is under maintenance. Authorized access (ROLE_DEVELOPER).

@@ -10,18 +10,27 @@
             {% set current = date(alertsWsAppli[0]['date_debut'])|date('d/m/Y H:i') < "now"|date('d/m/Y H:i') %}
 
             <div class="alert alert-warning" role="alert">
-                Un dysfonctionnement est {% if current %}en cours{% else %}à venir{% endif %} sur cette application.<br>
+                {% if current %}{{ "siamu_alert_live"|trans }}{% else %}{{ "siamu_alert_coming"|trans }}{% endif %}<br>
                 {% if not current %}
-                    Début prévu : {{ alertsWsAppli[0]['date_debut']|date('d/m/Y H:i') }}<br>
+                    {{ "siamu_alert_scheduledStart"|trans }} : {{ alertsWsAppli[0]['date_debut']|date('d/m/Y H:i') }}
+                    <br>
                 {% endif %}
-                Fin prévue : {{ alertsWsAppli[0]['date_fin']|date('d/m/Y H:i') }}<br>
+                {{ "siamu_alert_expectedEnd"|trans }} : {{ alertsWsAppli[0]['date_fin']|date('d/m/Y H:i') }}<br>
                 <a class="btn btn-sm btn-danger" data-bs-toggle="collapse" href="#collapse-detail-wsappli" role="button"
                    aria-expanded="false" aria-controls="collapseExample">
-                    Voir le détail
+                    {{ "siamu_button_details"|trans }}
                 </a>
                 <div class="collapse" id="collapse-detail-wsappli">
                     {{ alertsWsAppli[0]['description_pub'] }}<br>
-                    Criticité :{% if  alertsWsAppli[0]['criticite'] == 1 %} Faible{% else %} Moyenne{% endif %}<br>
+                    {{ "siamu_criticity"|trans }} :
+                    {% if alertsWsAppli[0]['criticite'] == 1 %}
+                        {{ "siamu_criticity_faible"|trans }}
+                    {% elseif alertsWsAppli[0]['criticite'] == 2 %}
+                        {{ "siamu_criticity_moyenne"|trans }}
+                    {% else %}
+                        {{ "siamu_criticity_forte"|trans }}
+                    {% endif %}
+                    <br>
                 </div>
             </div>
         {% endif %}
@@ -32,20 +41,35 @@
             {% set current = date(alertsWsAppliSource[0]['date_debut'])|date('d/m/Y H:i') < "now"|date('d/m/Y H:i') %}
 
             <div class="alert alert-warning" role="alert">
-                Un dysfonctionnement est {% if current %}en cours{% else %}à venir{% endif %} sur une application dont
-                dépend cette application.<br>
-                {% if not current %}
-                    Début prévu : {{ alertsWsAppli[0]['date_debut']|date('d/m/Y H:i') }}<br>
+                {% if current %}
+                    {{ "siamu_alert_source_live"|trans }}
+                {% else %}
+                    {{ "siamu_alert_source_coming"|trans }}
                 {% endif %}
-                Fin prévue : {{ alertsWsAppliSource[0]['date_fin']|date('d/m/Y H:i') }}<br>
+                <br>
+                {% if not current %}
+                    {{ "siamu_alert_scheduledStart"|trans }} : {{ alertsWsAppliSource[0]['date_debut']|date('d/m/Y H:i') }}
+                    <br>
+                {% endif %}
+                {{ "siamu_alert_expectedEnd"|trans }} : {{ alertsWsAppliSource[0]['date_fin']|date('d/m/Y H:i') }}<br>
+
                 <a class="btn btn-sm btn-danger" data-bs-toggle="collapse" href="#collapse-detail-wsapplisource"
                    role="button"
                    aria-expanded="false" aria-controls="collapseExample">
-                    Voir le détail
+                    {{ "siamu_button_details"|trans }}
                 </a>
                 <div class="collapse" id="collapse-detail-wsapplisource">
-                    Application concernée : {{ alertsWsAppliSource[0]['nom appli'] }}<br>
+                    {{ "siamu_affected_application"|trans }} : {{ alertsWsAppliSource[0]['nom appli'] }}<br>
                     {{ alertsWsAppliSource[0]['description_pub'] }}<br>
+
+                    {{ "siamu_criticity"|trans }} :
+                    {% if alertsWsAppliSource[0]['criticite'] == 1 %}
+                        {{ "siamu_criticity_faible"|trans }}
+                    {% elseif alertsWsAppliSource[0]['criticite'] == 2 %}
+                        {{ "siamu_criticity_moyenne"|trans }}
+                    {% else %}
+                        {{ "siamu_criticity_forte"|trans }}
+                    {% endif %}
                 </div>
             </div>
         {% endif %}
@@ -54,8 +78,9 @@
 {% elseif is_granted('ROLE_DEVELOPER') %}
     <div class="container-fluid" id="maintenance-dev">
         <div class="alert alert-danger" role="alert">
-            <p>Attention, l'application est en maintenance.
-                Accès autorisé (ROLE_DEVELOPER).</p>
+            <p>
+                {{ "siamu_developer_access"|trans }}
+            </p>
         </div>
     </div>
 {% endif %}

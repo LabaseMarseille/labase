@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use DateTime;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Contracts\Cache\ItemInterface;
@@ -30,7 +31,7 @@ class Siamu
     {
         $cache = new FilesystemAdapter();
 
-        return $cache->get('siamu_ws' . $ws, function (ItemInterface $item) use ($ws) {
+        $result = $cache->get('siamu_ws' . $ws, function (ItemInterface $item) use ($ws) {
             $response = $this->client->request(
                 'GET',
                 $this->urlSiamu . $ws,
@@ -54,6 +55,13 @@ class Siamu
 
             return $content;
         });
+
+        // Si on est en environnement de dev, on supprime le cache
+        if ($_ENV['APP_ENV'] === 'dev') {
+            $cache->delete('siamu_ws' . $ws);
+        }
+
+        return $result;
     }
 
     /**
@@ -64,6 +72,11 @@ class Siamu
      */
     public function isMaintenanceModeRequired(): bool
     {
+        // Si on est en environnement de dev, on ne passe pas en maintenance
+        if ($_ENV['APP_ENV'] === 'dev') {
+            return false;
+        }
+        
         if ($this->forceMaintenance) {
             return true;
         }
@@ -78,7 +91,12 @@ class Siamu
             // On vérifie la criticité du premier évènement de wsAppli
             if (array_key_exists(0, $wsAppli)) {
                 $firstEvent = $wsAppli[0];
-                if (array_key_exists('criticite', $firstEvent) && $firstEvent['criticite'] === '3') {
+                $dateDebut = DateTime::createFromFormat('Y-m-d H:i:s', $firstEvent['date_debut']);
+
+                if (array_key_exists('criticite', $firstEvent) &&
+                    $firstEvent['criticite'] === '3' &&
+                    $dateDebut->diff(new DateTime())->format('%R') === '+'
+                ) {
                     // on redirige vers la page de maintenance
                     return true;
                 }
@@ -87,7 +105,12 @@ class Siamu
             // On vérifie la criticité du premier évènement de wsAppliSource
             if (array_key_exists(0, $wsAppliSource)) {
                 $firstEvent = $wsAppliSource[0];
-                if (array_key_exists('criticite', $firstEvent) && $firstEvent['criticite'] === '3') {
+                $dateDebut = DateTime::createFromFormat('Y-m-d H:i:s', $firstEvent['date_debut']);
+
+                if (array_key_exists('criticite', $firstEvent) &&
+                    $firstEvent['criticite'] === '3' &&
+                    $dateDebut->diff(new DateTime())->format('%R') === '+'
+                ) {
                     // on redirige vers la page de maintenance
                     return true;
                 }

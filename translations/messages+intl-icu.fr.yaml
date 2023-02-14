@@ -1,0 +1,19 @@
+app_logout: Déconnexion
+app_home: Accueil
+app_footer: DirNum - Pôle Développement - Aix-Marseille Université
+say_hello: 'Bonjour {name} ! Vous êtes connecté.'
+msg_not_connected: Vous n'êtes pas connecté.
+siamu_alert_live: Un dysfonctionnement est en cours sur cette application.
+siamu_alert_coming: Un dysfonctionnement est à venir sur cette application.
+siamu_alert_source_live: Un incident est en cours sur une application dont dépend cette application.
+siamu_alert_source_coming: Un incident est à venir sur une application dont dépend cette application.
+siamu_alert_scheduledStart: Début prévu
+siamu_alert_expectedEnd: Fin prévue
+siamu_button_details: Voir le détail
+siamu_criticity: Criticité
+siamu_criticity_faible: Faible
+siamu_criticity_moyenne: Moyenne
+siamu_criticity_forte: Forte
+siamu_affected_application: Application concernée
+siamu_developer_access: Attention, l'application est en maintenance. Accès autorisé (ROLE_DEVELOPER).
+

@@ -28,7 +28,7 @@ final class MenuBuilder implements ContainerAwareInterface
         $menu->setChildrenAttribute('class', ' navbar-nav');
 
         $menu
-            ->addChild('Accueil', ['route' => 'app_index'])
+            ->addChild('app_home', ['route' => 'app_index'])
             ->setExtras(['icon' => 'bi bi-house-door'])
             ->setAttribute('class', 'nav-item');
 
@@ -65,7 +65,7 @@ final class MenuBuilder implements ContainerAwareInterface
             ->addChild('Logout', ['route' => 'cas_bundle_logout'])
             ->setExtras(['icon' => 'bi bi-box-arrow-right'])
             ->setAttribute('class', 'nav-item')
-            ->setLabel('Déconnexion');
+            ->setLabel('app_logout');
 
         return $menu;
     }
