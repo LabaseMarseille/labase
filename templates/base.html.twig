@@ -17,6 +17,12 @@
     {% endblock %}
 </head>
 <body>
+<div>
+    <a class="visually-hidden-focusable" href="#topbar">{{ "app_goTopbar"|trans }}</a>
+    <a class="visually-hidden-focusable" href="#sidebar">{{ "app_goSidebar"|trans }}</a>
+    <a class="visually-hidden-focusable" href="#content">{{ 'app_goContent'|trans }}</a>
+</div>
+
 <header>
     <nav id="topbar"
          class="navbar navbar-expand-lg fixed-top {% if is_granted('ROLE_PREVIOUS_ADMIN') %}bg-danger{% else %}bg-amu-main{% endif %}">
@@ -45,7 +51,9 @@
     <main>
         <div class="main-content container-fluid">
             {% include 'siamu/siamu.html.twig' %}
-            {% block body %}{% endblock %}
+            <div id="content">
+                {% block body %}{% endblock %}
+            </div>
         </div>
     </main>
 </div>

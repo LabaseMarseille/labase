@@ -1,8 +1,11 @@
 app_logout: Déconnexion
 app_home: Accueil
 app_footer: Direction du Numérique - Pôle Développement - Aix-Marseille Université
-say_hello: 'Bonjour {name} ! Vous êtes connecté.'
-msg_not_connected: Vous n'êtes pas connecté.
+app_goTopbar: Aller au menu en haut de page
+app_goSidebar: Aller au menu latéral
+app_goContent: Aller au contenu
+say_hello: 'Bonjour {name} ! Vous êtes connecté⋅e.'
+msg_not_connected: Vous n'êtes pas connecté⋅e.
 siamu_alert_live: Un dysfonctionnement est en cours sur cette application.
 siamu_alert_coming: Un dysfonctionnement est à venir sur cette application.
 siamu_alert_source_live: Un incident est en cours sur une application dont dépend cette application.

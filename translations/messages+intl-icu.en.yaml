@@ -1,6 +1,9 @@
 app_logout: Logout
 app_home: Home
 app_footer: DirNum - Development Center - Aix-Marseille University
+app_goTopbar: Go to top menu
+app_goSidebar: Go to sidebar menu
+app_goContent: Go to content
 say_hello: 'Hello {name}! You are connected.'
 msg_not_connected: You are not connected.
 siamu_alert_live: There is an incident on this application.
