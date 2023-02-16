@@ -51,8 +51,19 @@
 </div>
 
 <footer>
+    {% set currentRoute = app.request.attributes.get('_route') %}
+    {% set currentRouteParams = app.request.attributes.get('_route_params') %}
+
+    {% set routeParamsFr = currentRouteParams|merge({'_locale': 'fr'}) %}
+    {% set routeParamsEn = currentRouteParams|merge({'_locale': 'en'}) %}
+
     <a target="_blank" href="https://dirnum.univ-amu.fr/fr/pole-developpement">
-        <small>{{ "app_footer"|trans }}</small>
+        <small>{{ "app_footer"|trans }}
+            <span id="link-translation">
+                <a href="{{ path(currentRoute, routeParamsFr) }}">FR</a>/<a
+                        href="{{ path(currentRoute, routeParamsEn) }}">EN</a>
+            </span>
+        </small>
     </a>
 </footer>
 </body>
