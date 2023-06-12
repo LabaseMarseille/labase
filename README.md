@@ -1,4 +1,4 @@
-# SymfonySkeleton62
+# SymfonySkeleton 6.3
 
 Ce projet est un squelette de projet Symfony 6.3.
 
