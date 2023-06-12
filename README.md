@@ -166,3 +166,19 @@ twig:
 
 - Récupérer les templates dans templates/siamu
 - Récupérer SiamuController
+
+## Upgrade manuel de Symfony 6.2 à 6.3
+
+https://symfony.com/doc/current/setup/upgrade_minor.html
+
+- Supprimer le bundle `sensio/framework-extra-bundle` qui est déprécié/archivé dans le composer.json. (Ce Bundle nous
+  permettait des gérer les routes via les annotations avant PHP 8 et les attributs)
+
+- Mettre à jour les packages `Symfony/*` dans le composer.json en changeant le tag `6.2.*` par `6.3.*`.
+
+- Update via composer les paquets Symfony, puis les autres paquets
+
+```bash
+composer update "symfony/*"
+composer update
+```
