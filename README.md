@@ -1,6 +1,6 @@
 # SymfonySkeleton62
 
-Ce projet est un squelette de projet Symfony 6.2.
+Ce projet est un squelette de projet Symfony 6.3.
 
 Les bundle utilisés sont :
 
@@ -58,7 +58,7 @@ Pour lancer l'authentification, allez sur /admin.
 ### Création du projet
 
 ```bash
-symfony new my_project_directory --version="6.2.*" --webapp
+symfony new my_project_directory --version="6.3.*" --webapp
 cd my_project_directory
 ```
 
