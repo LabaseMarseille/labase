@@ -90,3 +90,6 @@ services:
       - '%env(SIAMU_ID_APP)%'
       - '%env(SIAMU_CURRENT)%'
       - '%force_maintenance%'
+
+  App\Skeleton\EventSubscriber\LocaleSubscriber:
+    arguments: [ '%kernel.default_locale%' ]
