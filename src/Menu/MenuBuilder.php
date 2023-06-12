@@ -28,7 +28,7 @@ final class MenuBuilder implements ContainerAwareInterface
         $menu->setChildrenAttribute('class', ' navbar-nav');
 
         $menu
-            ->addChild('app_home', ['route' => 'app_index'])
+            ->addChild('app_home', ['route' => 'app_homepage'])
             ->setExtras(['icon' => 'bi bi-house-door'])
             ->setAttribute('class', 'nav-item');
 
