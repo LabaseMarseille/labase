@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Service;
+namespace App\Skeleton\Service;
 
 use DateTime;
 use Psr\Cache\InvalidArgumentException;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -17,7 +18,8 @@ class Siamu
         private readonly string              $idApp,
         private readonly string              $current,
         private readonly bool                $forceMaintenance,
-        private readonly HttpClientInterface $client
+        private readonly HttpClientInterface $client,
+        private readonly LoggerInterface     $logger,
     )
     {
     }
@@ -76,7 +78,7 @@ class Siamu
         if ($_ENV['APP_ENV'] === 'dev') {
             return false;
         }
-        
+
         if ($this->forceMaintenance) {
             return true;
         }
@@ -85,35 +87,36 @@ class Siamu
         $wsAppli = $this->getAlertsWsAppli();
         $wsAppliSource = $this->getAlertsWsAppliSource();
 
-        // S'il y a des events, on vérifie la criticité
-        if (sizeof($wsAppli) > 0 || sizeof($wsAppliSource) > 0) {
+        // S'il n'y a pas d'events, on sort tout de suite
+        if (empty($wsAppli) && empty($wsAppliSource)) {
+            return false;
+        }
 
-            // On vérifie la criticité du premier évènement de wsAppli
-            if (array_key_exists(0, $wsAppli)) {
-                $firstEvent = $wsAppli[0];
-                $dateDebut = DateTime::createFromFormat('Y-m-d H:i:s', $firstEvent['date_debut']);
+        // On vérifie la criticité du premier évènement de wsAppli
+        $firstEvent = $wsAppli[0];
+        if (isset($firstEvent)) {
+            $dateDebut = DateTime::createFromFormat('Y-m-d H:i:s', $firstEvent['date_debut']);
 
-                if (array_key_exists('criticite', $firstEvent) &&
-                    $firstEvent['criticite'] === '3' &&
-                    $dateDebut->diff(new DateTime())->format('%R') === '+'
-                ) {
-                    // on redirige vers la page de maintenance
-                    return true;
-                }
+            if (isset($firstEvent['criticite']) &&
+                $firstEvent['criticite'] === '3' &&
+                $dateDebut->diff(new DateTime())->format('%R') === '+'
+            ) {
+                // on redirige vers la page de maintenance
+                return true;
             }
+        }
 
-            // On vérifie la criticité du premier évènement de wsAppliSource
-            if (array_key_exists(0, $wsAppliSource)) {
-                $firstEvent = $wsAppliSource[0];
-                $dateDebut = DateTime::createFromFormat('Y-m-d H:i:s', $firstEvent['date_debut']);
+        // On vérifie la criticité du premier évènement de wsAppliSource
+        $firstEvent = $wsAppliSource[0];
+        if (isset($firstEvent)) {
+            $dateDebut = DateTime::createFromFormat('Y-m-d H:i:s', $firstEvent['date_debut']);
 
-                if (array_key_exists('criticite', $firstEvent) &&
-                    $firstEvent['criticite'] === '3' &&
-                    $dateDebut->diff(new DateTime())->format('%R') === '+'
-                ) {
-                    // on redirige vers la page de maintenance
-                    return true;
-                }
+            if (isset($firstEvent['criticite']) &&
+                $firstEvent['criticite'] === '3' &&
+                $dateDebut->diff(new DateTime())->format('%R') === '+'
+            ) {
+                // on redirige vers la page de maintenance
+                return true;
             }
         }
 
@@ -125,7 +128,7 @@ class Siamu
         try {
             return $this->fetchAlert($this->urlApp);
         } catch (InvalidArgumentException $e) {
-            // @todo logger l'erreur
+            $this->logger->error($e->getMessage());
         }
         return [];
     }
@@ -135,7 +138,7 @@ class Siamu
         try {
             return $this->fetchAlert($this->urlAppSource);
         } catch (InvalidArgumentException $e) {
-            // @todo logger l'erreur
+            $this->logger->error($e->getMessage());
         }
         return [];
     }

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\EventSubscriber;
+namespace App\Skeleton\EventSubscriber;
 
-use App\Service\Siamu;
+use App\Skeleton\Service\Siamu;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;

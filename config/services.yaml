@@ -82,7 +82,7 @@ services:
     tags:
       - { name: knp_menu.menu, alias: topMenu }
 
-  App\Service\Siamu:
+  App\Skeleton\Service\Siamu:
     arguments:
       - '%env(SIAMU_WS_URL)%'
       - '%env(SIAMU_WS_URL_APP)%'

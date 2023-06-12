@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controller;
+namespace App\Skeleton\Controller;
 
-use App\Service\Siamu;
+use App\Skeleton\Service\Siamu;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

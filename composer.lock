@@ -8,14 +8,14 @@
     "packages": [
         {
             "name": "amu/cas-bundle",
-            "version": "v4.0.2",
+            "version": "v4.0.3",
             "source": {
                 "type": "git",
                 "url": "ssh://git@carpe-koi.univ-amu.fr/amu-svc-dosi-dvpt-tous/amu-svc-dosi-dvpt-php/bundles/casbundle.git",
-                "reference": "548dca8ecd87b4dc35e6aaae973c59b21592efb9"
+                "reference": "4d3fbe4b2b4adab1e637513dce6dbec2c05ba556"
             },
             "require": {
-                "ecphp/cas-bundle": "2.5.4",
+                "ecphp/cas-bundle": "^2.5",
                 "nyholm/psr7": "^1.5"
             },
             "type": "symfony-bundle",
@@ -46,7 +46,7 @@
                 "issues": "https://projets-dev.univ-amu.fr/projects/cas/issues",
                 "source": "https://projets-dev.univ-amu.fr/projects/cas/repository"
             },
-            "time": "2023-03-01T13:12:49+00:00"
+            "time": "2023-06-12T09:25:23+00:00"
         },
         {
             "name": "amu/role-bundle",
@@ -1471,16 +1471,16 @@
         },
         {
             "name": "ecphp/cas-bundle",
-            "version": "2.5.4",
+            "version": "2.5.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ecphp/cas-bundle.git",
-                "reference": "099b66bb95c241a21404b00a266410072b57e086"
+                "reference": "7422f89fca32dc990a831be41fa9dbb56bbec57c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ecphp/cas-bundle/zipball/099b66bb95c241a21404b00a266410072b57e086",
-                "reference": "099b66bb95c241a21404b00a266410072b57e086",
+                "url": "https://api.github.com/repos/ecphp/cas-bundle/zipball/7422f89fca32dc990a831be41fa9dbb56bbec57c",
+                "reference": "7422f89fca32dc990a831be41fa9dbb56bbec57c",
                 "shasum": ""
             },
             "require": {
@@ -1496,6 +1496,7 @@
             },
             "require-dev": {
                 "ecphp/php-conventions": "^1",
+                "ext-pcov": "*",
                 "friends-of-phpspec/phpspec-code-coverage": "^6",
                 "infection/infection": "^0.26",
                 "infection/phpspec-adapter": "^0.2",
@@ -1538,9 +1539,9 @@
             ],
             "support": {
                 "issues": "https://github.com/ecphp/cas-bundle/issues",
-                "source": "https://github.com/ecphp/cas-bundle/tree/2.5.4"
+                "source": "https://github.com/ecphp/cas-bundle/tree/2.5.5"
             },
-            "time": "2022-12-15T10:09:41+00:00"
+            "time": "2023-03-01T14:01:13+00:00"
         },
         {
             "name": "ecphp/cas-lib",
