@@ -49,7 +49,7 @@
         {% endblock %}
     </nav>
     <main>
-        <div class="main-content container-fluid">
+        <div class="main-content container-fluid {% if app.environment == "test" %} is-test {% endif %}">
             {% include 'siamu/siamu.html.twig' %}
             <div id="content">
                 {% block body %}{% endblock %}
