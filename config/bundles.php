@@ -17,4 +17,5 @@ return [
     Amu\CasBundle\AmuCasBundle::class => ['all' => true],
     Knp\Bundle\MenuBundle\KnpMenuBundle::class => ['all' => true],
     Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
+    Amu\SiamuMaintenanceBundle\AmuSiamuMaintenanceBundle::class => ['all' => true],
 ];

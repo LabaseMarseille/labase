@@ -5,6 +5,9 @@
     "amu/role-bundle": {
         "version": "dev-master"
     },
+    "amu/siamu-maintenance-bundle": {
+        "version": "v1.0.0"
+    },
     "doctrine/annotations": {
         "version": "1.14",
         "recipe": {

@@ -2,7 +2,7 @@ twig:
   default_path: '%kernel.project_dir%/templates'
   globals:
     app_title: 'Nom Application'
-    siamu_ws: '@App\Skeleton\Service\Siamu'
+    siamu_ws: '@Amu\SiamuMaintenanceBundle\Service\SiamuService'
 
 when@test:
   twig:

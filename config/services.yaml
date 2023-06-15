@@ -8,7 +8,6 @@ parameters:
     rel_dn: '%env(LDAP_RELATIVE_DN)%'
     pwd: '%env(LDAP_PWD)%'
     base_dn: '%env(LDAP_BASE_DN)%'
-  force_maintenance: '%env(bool:APP_FORCE_MAINTENANCE)%'
 
 services:
   # default configuration for services in *this* file
@@ -81,15 +80,3 @@ services:
     arguments: [ "@request_stack" ]
     tags:
       - { name: knp_menu.menu, alias: topMenu }
-
-  App\Skeleton\Service\Siamu:
-    arguments:
-      - '%env(SIAMU_WS_URL)%'
-      - '%env(SIAMU_WS_URL_APP)%'
-      - '%env(SIAMU_WS_URL_APP_SOURCE)%'
-      - '%env(SIAMU_ID_APP)%'
-      - '%env(SIAMU_CURRENT)%'
-      - '%force_maintenance%'
-
-  App\Skeleton\EventSubscriber\LocaleSubscriber:
-    arguments: [ '%kernel.default_locale%' ]

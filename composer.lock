@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bb158edd4562f6bd3278ec874c1373b6",
+    "content-hash": "dea358159b496d1d9678c6e2e5637835",
     "packages": [
         {
             "name": "amu/cas-bundle",
@@ -79,6 +79,43 @@
                 "source": "https://projets-dev.univ-amu.fr/projects/roles/repository"
             },
             "time": "2023-02-07T11:55:10+00:00"
+        },
+        {
+            "name": "amu/siamu-maintenance-bundle",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "ssh://git@carpe-koi.univ-amu.fr/amu-svc-dosi-dvpt-tous/amu-svc-dosi-dvpt-php/bundles/siamumaintenancebundle.git",
+                "reference": "b89098b4ecdd6a205e3a9ef6b0306634a89285d6"
+            },
+            "require": {
+                "php": ">=8.1",
+                "symfony/cache": ">=6.2",
+                "symfony/framework-bundle": ">=6.2",
+                "symfony/http-client": ">=6.2"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Amu\\SiamuMaintenanceBundle\\": "src/"
+                }
+            },
+            "license": [
+                "GPL"
+            ],
+            "authors": [
+                {
+                    "name": "NICOLAU Bastien",
+                    "email": "bastien.nicolau@univ-amu.fr"
+                }
+            ],
+            "description": "Bundle pour mettre une application Symfony en maintenance via les web-services SIAMU",
+            "keywords": [
+                "amu",
+                "bundle",
+                "symfony"
+            ],
+            "time": "2023-06-15T12:14:48+00:00"
         },
         {
             "name": "doctrine/annotations",
