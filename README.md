@@ -174,6 +174,12 @@ https://symfony.com/doc/current/setup/upgrade_minor.html
 - Supprimer le bundle `sensio/framework-extra-bundle` qui est déprécié/archivé dans le composer.json. (Ce Bundle nous
   permettait des gérer les routes via les annotations avant PHP 8 et les attributs)
 
+Pascal semble avoir eu un soucis à cette étape, pensez bien à faire un `composer update` avant de continuer
+ou `composer update sensio/framework-extra-bundle` pour que le bundle soit bien supprimé.
+
+Si même après tout ça, vous avez une erreur lors du cache:clear, vérifier qu'il ne reste aucun fichier de configuration
+lié à framework-extra-bundle. En dernière option, vous pouvez supprimer manuellement le cache dans var/cache.
+
 - Mettre à jour les packages `Symfony/*` dans le composer.json en changeant le tag `6.2.*` par `6.3.*`.
 
 - Update via composer les paquets Symfony, puis les autres paquets
