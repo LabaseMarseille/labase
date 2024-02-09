@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réservations{% endblock %}
+
+{% block body %}
+
+    {{ include('reservation/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('reservation') }}
+{% endblock %}

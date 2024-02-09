@@ -1,0 +1,182 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-sm-3" style="margin-bottom: 1em;">
+        <div class="card">
+            <div class="card-header" style="text-align: center;">
+                <h3>Paramètres des récurrences</h3>
+            </div>
+            <div class="card-body" style="text-align: center;">
+                <a class="btn btn-primary" href="{{ path('app_parametrerecurrence_index') }}">Liste</a>
+                <a class="btn btn-primary" href="{{ path('app_parametrerecurrence_new') }}">Création</a>
+                <div id="vide"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3" style="margin-bottom: 1em;">
+        <div class="card">
+            <div class="card-header" style="text-align: center;">
+                <h3>Périodicité des récurrences</h3>
+            </div>
+            <div class="card-body" style="text-align: center;">
+                <a class="btn btn-primary" href="{{ path('app_periodicite_index') }}">Liste</a>
+                <a class="btn btn-primary" href="{{ path('app_periodicite_new') }}">Création</a>
+                <div id="vide"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-3" style="margin-bottom: 1em;">
+        <div class="card">
+            <div class="card-header" style="text-align: center;">
+                <h3>Couleurs</h3>
+            </div>
+            <div class="card-body" style="text-align: center;">
+                <a class="btn btn-primary" href="{{ path('app_couleur_index') }}">Liste</a>
+                <a class="btn btn-primary" href="{{ path('app_couleur_new') }}">Création</a>
+                <div id="vide"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3" style="margin-bottom: 1em;">
+        <div class="card">
+            <div class="card-header" style="text-align: center;">
+                <h3>Etapes</h3>
+            </div>
+            <div class="card-body" style="text-align: center;">
+                <a class="btn btn-primary" href="{{ path('app_etape_index') }}">Liste</a>
+                <a class="btn btn-primary" href="{{ path('app_etape_new') }}">Création</a>
+                <div id="vide"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3" style="margin-bottom: 1em;">
+        <div class="card">
+            <div class="card-header" style="text-align: center;">
+                <h3>Roles</h3>
+            </div>
+            <div class="card-body" style="text-align: center;">
+                <a class="btn btn-primary" href="{{ path('app_rolesuser_index') }}">Liste</a>
+                <a class="btn btn-primary" href="{{ path('app_rolesuser_new') }}">Création</a>
+                <div id="vide"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3" style="margin-bottom: 1em;">
+        <div class="card">
+            <div class="card-header" style="text-align: center;">
+                <h3>Statut de réservation</h3>
+            </div>
+            <div class="card-body" style="text-align: center;">
+                <a class="btn btn-primary" href="{{ path('app_statutevent_index') }}">Liste</a>
+                <a class="btn btn-primary" href="{{ path('app_statutevent_new') }}">Création</a>
+                <div id="vide"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3" style="margin-bottom: 1em;">
+        <div class="card">
+            <div class="card-header" style="text-align: center;">
+                <h3>Type de mails de réservation</h3>
+            </div>
+            <div class="card-body" style="text-align: center;">
+                <a class="btn btn-primary" href="{{ path('app_mailreservation_index') }}">Liste</a>
+                <a class="btn btn-primary" href="{{ path('app_mailreservation_new') }}">Création</a>
+                <div id="vide"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3" style="margin-bottom: 1em;">
+        <div class="card">
+            <div class="card-header" style="text-align: center;">
+                <h3>Besoins</h3>
+            </div>
+            <div class="card-body" style="text-align: center;">
+                <a class="btn btn-primary" href="{{ path('app_besoin_index') }}">Liste</a>
+                <a class="btn btn-primary" href="{{ path('app_besoin_new') }}">Création</a>
+                <div id="vide"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3" style="margin-bottom: 1em;">
+        <div class="card">
+            <div class="card-header" style="text-align: center;">
+                <h3>Objectifs de réservation</h3>
+            </div>
+            <div class="card-body" style="text-align: center;">
+                <a class="btn btn-primary" href="{{ path('app_objectif_index') }}">Liste</a>
+                <a class="btn btn-primary" href="{{ path('app_objectif_new') }}">Création</a>
+                <div id="vide"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3" style="margin-bottom: 1em;">
+        <div class="card">
+            <div class="card-header" style="text-align: center;">
+                <h3>Types de réservation</h3>
+            </div>
+            <div class="card-body" style="text-align: center;">
+                <a class="btn btn-primary" href="{{ path('app_typereservation_index') }}">Liste</a>
+                <a class="btn btn-primary" href="{{ path('app_typereservation_new') }}">Création</a>
+                <div id="vide"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3" style="margin-bottom: 1em;">
+        <div class="card">
+            <div class="card-header" style="text-align: center;">
+                <h3>Salles</h3>
+            </div>
+            <div class="card-body" style="text-align: center;">
+                <a class="btn btn-primary" href="{{ path('app_salle_index') }}">Liste</a>
+                <a class="btn btn-primary" href="{{ path('app_salle_new') }}">Création</a>
+                <div id="vide"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3" style="margin-bottom: 1em;">
+        <div class="card">
+            <div class="card-header" style="text-align: center;">
+                <h3>Besoin bar</h3>
+            </div>
+            <div class="card-body" style="text-align: center;">
+                <a class="btn btn-primary" href="{{ path('app_besoinbar_index') }}">Liste</a>
+                <a class="btn btn-primary" href="{{ path('app_besoinbar_new') }}">Création</a>
+                <div id="vide"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3" style="margin-bottom: 1em;">
+        <div class="card">
+            <div class="card-header" style="text-align: center;">
+                <h3>Référents</h3>
+            </div>
+            <div class="card-body" style="text-align: center;">
+                <a class="btn btn-primary" href="{{ path('app_referents_index') }}">Liste</a>
+                <a class="btn btn-primary" href="{{ path('app_referents_new') }}">Création</a>
+                <div id="vide"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3" style="margin-bottom: 1em;">
+        <div class="card">
+            <div class="card-header" style="text-align: center;">
+                <h3>Types de réservant</h3>
+            </div>
+            <div class="card-body" style="text-align: center;">
+                <a class="btn btn-primary" href="{{ path('app_typereservant_index') }}">Liste</a>
+                <a class="btn btn-primary" href="{{ path('app_typereservant_new') }}">Création</a>
+                <div id="vide"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -9,9 +9,9 @@
     "bootstrap": "^5.2.3",
     "core-js": "^3.23.0",
     "file-loader": "^6.0.0",
-    "sass": "^1.57.1",
     "regenerator-runtime": "^0.13.9",
-    "sass-loader": "^13.2.0",
+    "sass": "^1.57.1",
+    "sass-loader": "^13.3.2",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0",
     "webpack-notifier": "^1.15.0"
@@ -25,6 +25,17 @@
     "build": "encore production --progress"
   },
   "dependencies": {
-    "bootstrap-icons": "^1.10.3"
+    "@fullcalendar/core": "^6.1.9",
+    "@fullcalendar/daygrid": "^6.1.9",
+    "@fullcalendar/interaction": "^6.1.9",
+    "bootstrap-datepicker": "^1.10.0",
+    "bootstrap-icons": "^1.10.3",
+    "bootstrap-table": "1.21.2",
+    "ckeditor4": "4.22.1",
+    "fullcalendar": "^6.1.9",
+    "jquery": "^3.7.1",
+    "node-sass": "^9.0.0",
+    "select2": "^4.1.0-rc.0",
+    "tableexport.jquery.plugin": "^1.28.0"
   }
 }

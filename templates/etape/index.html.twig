@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Etapes{% endblock %}
+
+{% block body %}
+    <div class="card text-center">
+        <div class="card-header">
+            <h1>Etape</h1>
+        </div>
+        <div class="card-body">
+            <table id="table" data-toggle="table" data-search="true" data-pagination="true" data-click-to-select="true">
+                <thead>
+                <tr>
+                    <th>Libelle</th>
+                    <th>Ordre</th>
+                    <th>Cloture</th>
+                    <th>actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for etape in etapes %}
+                    <tr>
+                        <td>{{ etape.libelle }}</td>
+                        <td>{{ etape.ordre }}</td>
+                        <td>{{ etape.cloture ? 'Oui' : 'Non' }}</td>
+                        <td>
+                            <a class="btn btn-primary" href="{{ path('app_etape_edit', {'id': etape.id}) }}">Modifier</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="1">Pas d'enregistrements existants</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <a class="btn btn-primary" href="{{ path('app_etape_new') }}">Création</a>
+            <a class="btn btn-info" href="{{ path('app_referentiel') }}">Retour référentiel</a>
+        </div>
+    </div>
+
+
+
+{% endblock %}

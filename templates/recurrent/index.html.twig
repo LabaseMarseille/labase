@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recurrent index{% endblock %}
+
+{% block body %}
+    <h1>Recurrent index</h1>
+
+    <table data-toggle="table"
+
+
+           data-pagination="true"
+           data-click-to-select="true"
+           data-remember-order="true"
+           data-sortable="true"
+           id="table"
+           data-filter-control="true"
+           data-show-columns="true"
+           data-fixed-columns="true"
+           data-sticky-header="true"
+           data-page-size="25"
+           data-show-search-clear-button="true"
+    >
+        <thead  class="table-primary">
+        <tr>
+            <th data-sortable="true"  data-filter-control="input">Titre</th>
+            <th data-sortable="true"  data-filter-control="input">Collectif</th>
+            <th data-sortable="true"  data-filter-control="input">Périodicite de la récurrence</th>
+            <th data-sortable="true"  data-filter-control="input">Commencement</th>
+            <th data-sortable="true"  data-filter-control="input">Fin</th>
+            <th data-sortable="true" data-filter-control="input"></th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for recurrent in recurrents %}
+            <tr>
+                <td>
+                    {{ recurrent.titre }}
+                </td>
+                <td>
+                    {{ recurrent.collectif.nom }}
+                </td>
+                <td>
+                    {{ recurrent.periodicite.libelle }}
+                </td>
+                <td>
+                    {{ recurrent.datedebut|date('Y-m-d H:i:s')  }}
+                </td>
+                <td>
+                    {{ recurrent.datefin|date('H:m:i') }}
+                </td>
+                <td>
+
+                    <a class="btn btn-primary" href="{{ path('app_recurrent_edit', {'id': recurrent.id, 'by': 'prog'}) }}">Rajout de salle</a>
+                    {% if recurrent.salles|length>0 %}
+                        <a class="btn btn-primary" href="{{ path('app_recurrent_valider', {'id': recurrent.id}) }}">Valider</a>
+                    {% endif %}
+                </td>
+
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_recurrent_new') }}">Create new</a>
+{% endblock %}

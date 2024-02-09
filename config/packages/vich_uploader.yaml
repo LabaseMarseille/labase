@@ -1,0 +1,35 @@
+vich_uploader:
+    db_driver: orm
+
+    metadata:
+        type: attribute
+    #mappings:
+    #    products:
+    #        uri_prefix: /images/products
+    #        upload_destination: '%kernel.project_dir%/public/images/products'
+    #        namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+    mappings:
+        doc1_directory:
+            uri_prefix: /upload/doc1
+            upload_destination: '%kernel.project_dir%/public/upload/doc1'
+            namer:
+                service: vich_uploader.namer_origname
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+        doc2_directory:
+            uri_prefix: /upload/doc2
+            upload_destination: '%kernel.project_dir%/public/upload/doc2'
+            namer:
+                service: vich_uploader.namer_origname
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+        doc3_directory:
+            uri_prefix: /upload/doc3
+            upload_destination: '%kernel.project_dir%/public/upload/doc3'
+            namer:
+                service: vich_uploader.namer_origname
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true

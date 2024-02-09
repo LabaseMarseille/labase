@@ -1,0 +1,28 @@
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+{{ form_start(form) }}
+{% set formErrors = form.vars.errors.form.getErrors(true) %}
+
+{% if formErrors|length %}
+    <span style="color: red">Erreur(s) détectée(s)</span>
+    <ul>
+        {% for error in formErrors %}
+            <li style="color: red">{{ error.message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<div class="card" style="width: 72rem;">
+    <div class="card-header text-primary">
+        <h1>Statut des évènements</h1>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{ form_row(form.libelle) }}</li>
+        <li class="list-group-item">{{ form_row(form.cloture) }}</li>
+
+    </ul>
+</div>
+
+
+<button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+<a class="btn btn-info" href="{{ path('app_statutevent_index') }}">Retour</a>
+{{ form_end(form) }}

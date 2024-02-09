@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+
+    <table data-toggle="table"
+           data-url="{{ path('app_user_json') }}"
+
+           data-pagination="true"
+           data-click-to-select="true"
+           data-remember-order="true"
+           data-sortable="true"
+           id="table"
+           data-filter-control="true"
+           data-show-columns="true"
+           data-fixed-columns="true"
+           data-sticky-header="true"
+           data-page-size="25"
+           data-export-types="['csv', 'txt', 'excel']"
+           data-show-export="true"
+           data-show-search-clear-button="true"
+    >
+        <thead  class="table-primary">
+        <tr>
+            <th data-sortable="true" data-field="nom"  data-filter-control="input"> Nom</th>
+            <th data-sortable="true" data-field="email"  data-filter-control="input">E-mail</th>
+            <th data-sortable="true" data-field="telephone"  data-filter-control="input">Téléphone</th>
+            <th data-sortable="true" data-field="datecreation"  data-filter-control="input">date de création</th>
+            <th data-field="id" data-formatter="actionFormatter" >Actions</th>
+
+        </tr>
+        </thead>
+    </table>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        function actionFormatter(value) {
+            var detailUrl = "{{ path('app_user_edit', {'id': 'monId'}) }}";
+            detailUrl = detailUrl.replace("monId",value);
+
+            var buttonDetail =  '<a class="btn btn-info"  data-position="top" data-alignment="center" href="' + detailUrl + '">Modification</a>';
+
+            return buttonDetail /*+ spanCtrl + button + modalShow + closeSpan*/;
+        }
+
+
+
+    </script>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation index{% endblock %}
+
+{% block body %}
+
+    {% for semaine in semaines %}
+
+        <div class="card text-center">
+            <div class="card-header">
+                <h1>{{ semaine.jour }} {{ semaine.datejour|date('d') }} {{ semaine.mois }} {{ semaine.datejour|date('Y') }}</h1>
+            </div>
+            <div class="card-body">
+                {% for programme in programmes %}
+                    {% if (programme.num==semaine.num) %}
+                        <strong>{{ programme.datedebut|date('H:i') }} -  {{ programme.datefin|date('H:i') }}</strong> :  {{ programme.collectif }} - {{ programme.titre }}
+                        {% for salle in programme.salle %}
+                            [{{ salle.libelle }}]
+                        {% endfor %}
+
+                    {% endif %}
+
+                {% endfor %}
+
+            </div>
+        </div>
+        <br>
+    {% endfor %}
+
+
+
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

@@ -1,8 +1,7 @@
 twig:
   default_path: '%kernel.project_dir%/templates'
   globals:
-    app_title: 'Nom Application'
-    siamu_ws: '@Amu\SiamuMaintenanceBundle\Service\SiamuService'
+    app_title: 'Réserve Ta Base'
 
 when@test:
   twig:

@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Calendrier{% endblock %}
+{% block stylesheets %}
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
+{% endblock %}
+
+{% block body %}
+
+
+    <a class="btn btn-primary" href="{{ path('app_reservation_index') }}">Retour</a>
+    <div id="calendrier"></div>
+
+    <div id="calendarModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+                    <h4 id="modalTitle" class="modal-title"></h4>
+                </div>
+                <div id="modalBody" class="modal-body"> </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        window.onload=()=>{
+            let calendarElt=document.querySelector("#calendrier")
+            let calendar = new FullCalendar.Calendar(calendarElt, {
+                initialView: 'timeGridWeek',
+                locale: 'fr',
+                buttonText: {
+                    today:    'Aujourd\'hui',
+                    month:    'Mois',
+                    week:     'Semaine',
+                    day:      'Jour',
+                    list:     'Liste'
+                },
+                timeZone: 'Europe/Paris',
+                headerToolbar: {
+                    start: 'prev, next today',
+                    center : 'title',
+                    end : 'dayGridMonth, timeGridWeek'
+                },
+                droppable: true,
+                events: {{ data|raw }},
+                editable: true,
+                eventResizableFromStart: true
+            })
+
+            calendar.on('eventChange', (e)=>{
+                let url=`/reservation/calendrier/editdate/${e.event.id}`
+                let donnees={
+                    "title": e.event.title,
+                    "description": e.event.extendedProps.description,
+                    "start": e.event.start,
+                    "end": e.event.end
+                }
+                let xhr=new XMLHttpRequest
+
+                xhr.open("PUT", url)
+                xhr.send(JSON.stringify(donnees))
+            })
+
+            calendar.on('eventClick', (e)=>{
+                let url=`/reservation/index`
+                let donnees={
+                    "title": e.event.title,
+                    "description": e.event.extendedProps.description,
+                    "start": e.event.start,
+                    "end": e.event.end
+                }
+
+                var strWindowFeatures = "location=yes,height=570,width=520,scrollbars=yes,status=yes";
+                //var URL = `/reservation/index` + location.href;
+                var URL ='/reservation/'+ e.event.id + '/edit/refprog' + location.href;
+console.log(e.event.id);
+console.log(e.event.extendedProps.description);
+                window.open(url);
+
+
+                // let xhr=new XMLHttpRequest
+               // xhr.open("GET", url)
+               // xhr.send(JSON.stringify(donnees))
+            //    $('#modalTitle').html(e.event.title);
+            //    $('#modalBody').html(e.event.description);
+            //    $("#calendarModal").modal("show");
+            })
+
+
+            calendar.render()
+
+
+        }
+
+
+    </script>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Recurrent{% endblock %}
+
+{% block body %}
+    <h1>Edit Recurrent</h1>
+
+    {{ include('recurrent/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_recurrent_index') }}">back to list</a>
+
+    {{ include('recurrent/_delete_form.html.twig') }}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('recurrent') }}
+{% endblock %}

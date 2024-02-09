@@ -1,5 +1,0 @@
-amu_siamu_maintenance:
-  resource:
-    path: '@AmuSiamuMaintenanceBundle/src/Controller/'
-    namespace: Amu\SiamuMaintenanceBundle\Controller
-  type: attribute

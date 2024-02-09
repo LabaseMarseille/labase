@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation index{% endblock %}
+
+{% block body %}
+
+    <a class="btn btn-primary" href="{{ path('app_reservation_communication', {'commfaite':0, 'commannulee':1}) }}">Comm' annulées</a>
+    <a class="btn btn-primary" href="{{ path('app_reservation_communication', {'commfaite':1, 'commannulee':0}) }}">Comm' effectuées</a>
+    <a class="btn btn-primary" href="{{ path('app_reservation_communication') }}">Comm' à faire</a>
+
+
+    <table data-toggle="table"
+
+
+           data-pagination="true"
+           data-click-to-select="true"
+           data-remember-order="true"
+           data-sortable="true"
+           id="table"
+           data-filter-control="true"
+           data-show-columns="true"
+           data-fixed-columns="true"
+           data-sticky-header="true"
+           data-page-size="25"
+           data-export-types="['csv', 'txt', 'excel']"
+           data-show-export="true"
+           data-show-search-clear-button="true"
+
+    >
+        <thead  class="table-primary">
+        <tr>
+
+            <th data-sortable="true" data-filter-control="input">Titre</th>
+            <th data-sortable="true" data-filter-control="input">Collectif</th>
+            <th data-sortable="true" data-filter-control="input">Date et heure de début</th>
+            <th data-sortable="true" data-filter-control="input">date de création</th>
+            <th data-sortable="true" data-filter-control="input">Document 1</th>
+            <th data-sortable="true" data-filter-control="input">Document 2</th>
+            <th data-sortable="true" data-filter-control="input">Document 3</th>
+            <th data-sortable="true" data-filter-control="input">Formulation</th>
+            <th data-sortable="true" data-filter-control="input">Comm' faite ?</th>
+            <th data-sortable="true" data-filter-control="input">Comm' annulée ?</th>
+            <th data-field="id" data-formatter="actionFormatter" >Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for reservation in reservations %}
+            <tr>
+                <td>{{ reservation.titre }}</td>
+                <td>{{ reservation.collectif.nom }}</td>
+                <td>{{ reservation.datedebut|date('d-m-Y') }}</td>
+                <td>{{ reservation.datecreation|date('d-m-Y') }}</td>
+                {% if reservation.doc1 is null %}
+                    <td>-</td>
+                {% else %}
+                    <td> <a download href="{{asset (vich_uploader_asset (reservation, 'doc1File'))}}" target="_blank" >Affichage/téléchargement </a></td>
+                {% endif %}
+                {% if reservation.doc2 is null %}
+                    <td>-</td>
+                {% else %}
+                    <td> <a download href="{{asset (vich_uploader_asset (reservation, 'doc2File'))}}" target="_blank" >Affichage/téléchargement </a></td>
+                {% endif %}
+                {% if reservation.doc3 is null %}
+                    <td>-</td>
+                {% else %}
+                    <td> <a download href="{{asset (vich_uploader_asset (reservation, 'doc3File'))}}" target="_blank" >Affichage/téléchargement </a></td>
+                {% endif %}
+                <td>{{ reservation.formulation|raw }}</td>
+
+                <td>{{ reservation.commfaite ? 'Oui' : 'Non' }}</td>
+                <td>{{ reservation.commannulee ? 'Oui' : 'Non' }}</td>
+                <td>
+                    <a class="btn btn-primary" href="{{ path('app_reservation_commfaite', {'id': reservation.id, 'commfaite': commfaite, 'commannulee': commannulee}) }}">Valider</a>
+                </td>
+                <td>
+                    <a class="btn btn-primary" href="{{ path('app_reservation_commannulee', {'id': reservation.id, 'commfaite': commfaite, 'commannulee': commannulee}) }}">Annuler</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="1">Pas d'enregistrements existants</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+
+
+    <script>
+        function actionFormatter(value) {
+
+            var editUrl = "{{ path('app_reservation_com_show', {'id': 'monId'}) }}";
+            editUrl = editUrl.replace("monId",value);
+            var buttonEdit =  '<a class="btn btn-info"  data-position="top" data-alignment="center" href="' + editUrl + '">Détail</a>';
+
+            return buttonEdit /*+ spanCtrl + button + modalShow + closeSpan*/;
+        }
+
+
+
+    </script>
+{% endblock %}

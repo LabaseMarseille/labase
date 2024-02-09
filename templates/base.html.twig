@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{{ app_title|trans }}{% endblock %}</title>
 
-    <link rel="icon" type="image/x-icon" href="{{ asset('build/images/favicon.ico') }}"/>
+
     {{ encore_entry_link_tags('app') }}
     {{ encore_entry_script_tags('app') }}
 
@@ -17,6 +17,8 @@
     {% endblock %}
 </head>
 <body>
+
+
 <div>
     <a class="visually-hidden-focusable" href="#topbar">{{ "app_goTopbar"|trans }}</a>
     <a class="visually-hidden-focusable" href="#sidebar">{{ "app_goSidebar"|trans }}</a>
@@ -28,15 +30,37 @@
          class="navbar navbar-expand-lg fixed-top {% if is_granted('ROLE_PREVIOUS_ADMIN') %}bg-danger{% else %}bg-amu-main{% endif %}">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img id="navbar-brand-img" src="{{ asset('build/images/LogoAmuBlanc62.svg') }}" alt="logo AMU">
+                 <img id="navbar-brand-img" src="{{ asset('build/images/Logo.jpg') }}" alt="logo Base">
                 <span id="navbar-brand-name">{{ app_title }}</span>
             </a>
+
+            {% if app.user %}
+                <span id="navbar-brand-name">Bienvenu(e) {{ app.user.nom }}</span>
+                <span id="navbar-brand-name"><a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a></span>
+
+            {% else %}
+                <span id="navbar-brand-name"><a class="nav-link" href="{{ path('app_login') }}">Connexion</a></span>
+                <span id="navbar-brand-name"><a class="nav-link" href="{{ path('app_register') }}">Création de compte</a></span>
+
+            {% endif %}
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                     aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-                {{ knp_menu_render('topMenu', {'template': 'menu/knp_menu_sidebar_trans.html.twig', 'currentClass': 'active'}) }}
+                {% if is_granted('ROLE_ADMIN') %}
+
+                    <a class="nav-link dropdown-toggle" href="#" id="navBarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Administration</a>
+                    <ul class="dropdown-menu menu-admin dropdown-menu-end" aria-labelledby="navBarDropdown">
+                        <li><a class="dropdown-item" href="{{ path('app_referentiel') }}">Référentiel</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_user_index') }}">Habilitations</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_referentiel') }}">Référentiel</a></li>
+                    </ul>
+
+                {% endif %}
+
             </div>
         </div>
     </nav>
@@ -50,8 +74,17 @@
     </nav>
     <main>
         <div class="main-content container-fluid {% if app.environment == "test" %} is-test {% endif %}">
-            {% include '@AmuSiamuMaintenance/warning.html.twig' %}
+
             <div id="content">
+                {% if app.user  and app.user.isverified == false%}
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <div class="alert-message">
+                            <strong>Votre compte n'est pas activé</strong>, renvoyer le lien d'activation.
+                        </div>
+                    </div>
+                {% endif %}
+                {%  include  "_flash.html.twig"%}
                 {% block body %}{% endblock %}
             </div>
         </div>

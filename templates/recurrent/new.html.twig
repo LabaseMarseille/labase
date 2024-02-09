@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Recurrent{% endblock %}
+
+{% block body %}
+    <h1>Create new Recurrent</h1>
+
+    {{ include('recurrent/_form.html.twig') }}
+
+    <a href="{{ path('app_recurrent_index') }}">back to list</a>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('recurrent') }}
+{% endblock %}

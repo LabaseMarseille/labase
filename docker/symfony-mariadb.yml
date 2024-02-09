@@ -1,0 +1,23 @@
+  db-base:
+    container_name: base-mariadb
+    image: base-mariadb
+    restart: always
+    environment:
+      MARIADB_DB: ${MARIADB_DB:-base}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD:-basebase}
+      MARIADB_USER: ${MARIADB_USER:-base}
+      MARIADB_ROOT_PASSWORD: ${MARIADB_PASSWORD:-basebase}
+    ports:
+      [3304:3306]
+    volumes:
+      - /home/pbenalloul/Phpproject/base/data:/var/lib/postgresql/data
+  app-base:
+    container_name: base
+    image: base-web
+    depends_on:
+      - db-base
+    volumes:
+      - /home/pbenalloul/Phpproject/base/:/var/www/html/
+      - ~/.ssh/:/home/dev-php/.ssh
+    ports:
+      [8401:80]

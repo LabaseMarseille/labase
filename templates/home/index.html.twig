@@ -8,8 +8,14 @@
         <li><a href="https://getbootstrap.com/docs/5.2/" target="_blanck">Bootstrap 5.2.3</a></li>
         <li><a href="https://icons.getbootstrap.com/" target="_blanck">Icones Bootstrap 1.10.3</a></li>
     </ul>
+
+
+
+
     {% if app.user %}
-        <p>{{ "say_hello"|trans({'name': app.user.username}) }}</p>
+        <a class="btn btn-primary" href="{{ path('app_logout') }}">Se déconnecter</a>
+        <a class="btn btn-primary" href="#">Mon compte</a>
+        <p>{{ "say_hello"|trans({'name': app.user.nom}) }}</p>
         Mes rôles :
         <ul>
             {% for role in app.user.roles %}
@@ -18,7 +24,7 @@
         </ul>
         Mes attributs :
         <ul>
-            {% for key, attribute in app.user.attributes %}
+            {% for key, attribute in app.user.roles %}
                 <li>
                     {{ key }} :
                     {% if attribute is  iterable %}
@@ -32,5 +38,9 @@
 
     {% else %}
         <p>{{ "msg_not_connected"|trans }}</p>
+        <a class="btn btn-primary" href="{{ path('app_login') }}">Connexion</a>
+        <a class="btn btn-primary" href="{{ path('app_register') }}">Création de compte</a>
     {% endif %}
 {% endblock %}
+
+

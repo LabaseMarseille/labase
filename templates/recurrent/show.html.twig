@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recurrent{% endblock %}
+
+{% block body %}
+    <h1>Recurrent</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ recurrent.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ recurrent.titre }}</td>
+            </tr>
+            <tr>
+                <th>Personnepresente</th>
+                <td>{{ recurrent.personnepresente }}</td>
+            </tr>
+            <tr>
+                <th>Nbpersonne</th>
+                <td>{{ recurrent.nbpersonne }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ recurrent.email }}</td>
+            </tr>
+            <tr>
+                <th>Autrebesoin</th>
+                <td>{{ recurrent.autrebesoin }}</td>
+            </tr>
+            <tr>
+                <th>Gratuit</th>
+                <td>{{ recurrent.gratuit ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Cloture</th>
+                <td>{{ recurrent.cloture ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Datecreation</th>
+                <td>{{ recurrent.datecreation ? recurrent.datecreation|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Datedebut</th>
+                <td>{{ recurrent.datedebut ? recurrent.datedebut|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Datefin</th>
+                <td>{{ recurrent.datefin ? recurrent.datefin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_recurrent_index') }}">back to list</a>
+
+    <a href="{{ path('app_recurrent_edit', {'id': recurrent.id}) }}">edit</a>
+
+    {{ include('recurrent/_delete_form.html.twig') }}
+{% endblock %}

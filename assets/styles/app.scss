@@ -8,9 +8,11 @@
 @import "amu/menu/sidebar";
 @import "amu/menu/bottombar";
 
-.is-test {
-  background-image: url("../images/test.png");
-  background-repeat: repeat;
-}
+
 
 // Ajoutez vos styles ici =>
+@import "~bootstrap-table/dist/bootstrap-table.css";
+@import "~bootstrap-table/dist/extensions/filter-control/bootstrap-table-filter-control.min.css";
+@import "~bootstrap-table/dist/extensions/sticky-header/bootstrap-table-sticky-header.css";
+@import "~bootstrap-table/dist/extensions/fixed-columns/bootstrap-table-fixed-columns.min.css";
+@import "~select2/dist/css/select2.css";

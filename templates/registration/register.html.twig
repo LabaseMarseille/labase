@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+
+
+{% form_theme registrationForm 'bootstrap_5_layout.html.twig' %}
+{{ form_start(registrationForm) }}
+{% set formErrors = registrationForm.vars.errors.form.getErrors(true) %}
+
+{% if formErrors|length %}
+    <span style="color: red">Erreur(s) détectée(s)</span>
+    <ul>
+        {% for error in formErrors %}
+            <li style="color: red">{{ error.message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<div class="card" style="width: 72rem;">
+    <div class="card-header text-primary">
+        <h1>Inscription</h1>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{ form_row(registrationForm.email) }}</li>
+        <li class="list-group-item">{{ form_row(registrationForm.nom) }}</li>
+        <li class="list-group-item">
+            {{ form_row(registrationForm.plainPassword, {
+                label: 'Mot de passe'
+            }) }}
+        </li>
+        <li class="list-group-item">{{ form_row(registrationForm.agreeTerms) }}</li>
+
+
+    </ul>
+</div>
+<button class="btn btn-primary">{{ button_label|default('Création de compte') }}</button>
+
+{{ form_end(registrationForm) }}
+
+
+{% endblock %}

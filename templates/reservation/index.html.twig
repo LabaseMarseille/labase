@@ -1,0 +1,294 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservations{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="btn-group-vertical">
+                <h3>Filtrage</h3>
+                <a class="btn btn-primary btn-rounded" href="{{ path('app_reservation_index') }}">Toutes les réservations</a>
+                <a class="btn btn-primary btn-rounded" href="{{ path('app_reservation_index', { 'filtre' : 'nonpriseenmain'}) }}">Réservations non prises en main</a>
+                <a class="btn btn-primary btn-rounded" href="{{ path('app_reservation_index', { 'filtre' : 'lesmiennes'}) }}">Mes réservations</a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="btn-group-vertical">
+                <h3>Affichage</h3>
+                <a class="btn btn-success" href="{{ path('app_reservation_celendrier', { 'retour' : 'reservation'}) }}">Afficher le calendrier</a>
+                <a class="btn btn-primary" href="{{ path('app_reservation_programme') }}">Afficher le programme</a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="btn-group-vertical">
+                <h3>Etapes</h3>
+                <a class="btn btn-primary" href="{{ path('app_reservation_index', { 'filtre' : 'validee'}) }}">Voir les réservations validées</a>
+                <a class="btn btn-primary" href="{{ path('app_reservation_index', { 'filtre' : 'archive'}) }}">Voir les réservations archivées</a>
+                <a class="btn btn-primary" href="{{ path('app_reservation_index', { 'filtre' : 'annulee'}) }}">Voir les réservations annulées</a>
+                <a class="btn btn-primary btn-rounded" href="{{ path('app_reservation_index') }}">Toutes les réservations</a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="btn-group-vertical">
+                    <h3>Actions</h3>
+                    <button  id="multipriseenmain" class="btn btn-primary" onclick="multipriseenmain()">Prise en main</button>
+                    <button  id="miseaucalendrier" class="btn btn-primary" onclick="miseaucalendrier()">Mettre au calendrier</button>
+                    <button  id="otercalendrier" class="btn btn-primary" onclick="otercalendrier()">Enlever du calendrier</button>
+            </div>
+        </div>
+        <div class="col">
+            <div class="btn-group-vertical">
+                <h3>Etapes</h3>
+                <div class="col-xs-2">
+
+                    <select class="selectpicker" id="selectionetape" aria-label="Default select example">
+                        <option selected>Sélectionnez une étape</option>
+                        {% for etape in etapes %}
+                            <option value={{ etape.id }}>{{ etape.libelle }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button  id="changeetape" class="btn btn-primary" onclick="changeetape()">Changer d'étape</button>
+            </div>
+        </div>
+        <div class="col">
+            <div class="btn-group-vertical">
+                <h3>Récurrences</h3>
+                <a class="btn btn-primary" href="{{ path('app_recurrent_index') }}">Gestion des récurrences</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="accordion" id="accordionPanelsStayOpenExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                    <h2>Nouvelles réservations</h2>
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+            <div class="accordion-body">
+                <table data-toggle="table"
+                       data-url="{{ path('app_reservation_json', {'filtre': filtre, 'etape':1}) }}"
+
+                       data-pagination="true"
+                       data-click-to-select="true"
+                       data-remember-order="true"
+                       data-sortable="true"
+                       id="table"
+                       data-filter-control="true"
+                       data-show-columns="true"
+                       data-fixed-columns="true"
+                       data-sticky-header="true"
+                       data-page-size="25"
+                       data-export-types="['csv', 'txt', 'excel']"
+                       data-show-export="true"
+                       data-show-search-clear-button="true"
+                >
+                    <thead  class="table-primary">
+                    <tr>
+                        <th data-checkbox="true" data-width=1>Id</th>
+                        <th data-sortable="true" data-field="titre"  data-filter-control="input">Titre</th>
+                        <th data-sortable="true" data-field="collectif"  data-filter-control="input">Collectif</th>
+                        <th data-sortable="true" data-field="datedebut"  data-filter-control="input">Date et heure de début</th>
+                        <th data-sortable="true" data-field="datefin"  data-filter-control="input">Date et heure de fin</th>
+                        <th data-sortable="true" data-field="datecreation"  data-filter-control="input">date de création</th>
+                        <th data-sortable="true" data-field="reservepar"  data-filter-control="input">Réservé par</th>
+                        <th data-sortable="true" data-field="priseenmain"  data-filter-control="input">prise en main par</th>
+                        <th data-sortable="true" data-field="calendrier"  data-filter-control="input">Mise au calendrier</th>
+                        <th data-field="id" data-formatter="actionFormatter" >Actions</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
+                    <h2>Discussions avec le collectif</h2>
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
+            <div class="accordion-body">
+                <table data-toggle="table"
+                       data-url="{{ path('app_reservation_json', {'filtre': filtre, 'etape':2}) }}"
+
+                       data-pagination="true"
+                       data-click-to-select="true"
+                       data-remember-order="true"
+                       data-sortable="true"
+                       id="table"
+                       data-filter-control="true"
+                       data-show-columns="true"
+                       data-fixed-columns="true"
+                       data-sticky-header="true"
+                       data-page-size="25"
+                       data-export-types="['csv', 'txt', 'excel']"
+                       data-show-export="true"
+                       data-show-search-clear-button="true"
+
+                >
+                    <thead  class="table-primary">
+                    <tr>
+                        <th data-checkbox="true" data-width=1>Id</th>
+                        <th data-sortable="true" data-field="titre"  data-filter-control="input">Titre</th>
+                        <th data-sortable="true" data-field="collectif"  data-filter-control="input">Collectif</th>
+                        <th data-sortable="true" data-field="datedebut"  data-filter-control="input">Date et heure de début</th>
+                        <th data-sortable="true" data-field="datefin"  data-filter-control="input">Date et heure de fin</th>
+                        <th data-sortable="true" data-field="datecreation"  data-filter-control="input">date de création</th>
+                        <th data-sortable="true" data-field="reservepar"  data-filter-control="input">Réservé par</th>
+                        <th data-sortable="true" data-field="priseenmain"  data-filter-control="input">prise en main par</th>
+                        <th data-sortable="true" data-field="calendrier"  data-filter-control="input">Mise au calendrier</th>
+                        <th data-field="id" data-formatter="actionFormatter" >Actions</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true" aria-controls="panelsStayOpen-collapseThree">
+                    <h2>En attente de RefBar / refBase</h2>
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingThree">
+            <div class="accordion-body">
+                <table data-toggle="table"
+                       data-url="{{ path('app_reservation_json', {'filtre': filtre, 'etape':3}) }}"
+
+                       data-pagination="true"
+                       data-click-to-select="true"
+                       data-remember-order="true"
+                       data-sortable="true"
+                       id="table"
+                       data-filter-control="true"
+                       data-show-columns="true"
+                       data-fixed-columns="true"
+                       data-sticky-header="true"
+                       data-page-size="25"
+                       data-export-types="['csv', 'txt', 'excel']"
+                       data-show-export="true"
+                       data-show-search-clear-button="true"
+
+                >
+                    <thead  class="table-primary">
+                    <tr>
+                        <th data-checkbox="true" data-width=1>Id</th>
+                        <th data-sortable="true" data-field="titre"  data-filter-control="input">Titre</th>
+                        <th data-sortable="true" data-field="collectif"  data-filter-control="input">Collectif</th>
+                        <th data-sortable="true" data-field="datedebut"  data-filter-control="input">Date et heure de début</th>
+                        <th data-sortable="true" data-field="datefin"  data-filter-control="input">Date et heure de fin</th>
+                        <th data-sortable="true" data-field="datecreation"  data-filter-control="input">date de création</th>
+                        <th data-sortable="true" data-field="reservepar"  data-filter-control="input">Réservé par</th>
+                        <th data-sortable="true" data-field="priseenmain"  data-filter-control="input">prise en main par</th>
+                        <th data-sortable="true" data-field="calendrier"  data-filter-control="input">Mise au calendrier</th>
+                        <th data-field="id" data-formatter="actionFormatter" >Actions</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function multipriseenmain() {
+            var $table = $('#table');
+            var selections = [];
+            var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
+                selections.push(row.id);
+            })
+            $.ajax({
+                type: "POST",
+                url: "{{ path('multipriseenmain') }}",
+                async: false,
+                data: jQuery.param({ table : selections})
+
+            });
+            location.reload()
+        }
+    </script>
+    <script>
+        function changeetape() {
+
+            var $table = $('#table');
+            var etape=$('#selectionetape option:selected').val();
+            var selections = [];
+            var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
+                selections.push(row.id);
+            })
+            $.ajax({
+                type: "POST",
+                url: "{{ path('changeetape') }}",
+                async: false,
+                data: jQuery.param({ table : selections, etape : etape})
+
+            });
+            location.reload()
+
+        }
+    </script>
+
+    <script>
+        function otercalendrier() {
+            var $table = $('#table');
+
+            var selections = [];
+            var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
+                selections.push(row.id);
+            })
+            $.ajax({
+                type: "POST",
+                url: "{{ path('otercalendrier') }}",
+                async: false,
+                data: jQuery.param({ table : selections})
+
+            });
+            location.reload()
+        }
+    </script>
+    <script>
+        function miseaucalendrier() {
+            var $table = $('#table');
+            var selections = [];
+            var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
+                selections.push(row.id);
+            })
+            $.ajax({
+                type: "POST",
+                url: "{{ path('miseaucalendrier') }}",
+                async: false,
+                data: jQuery.param({ table : selections})
+
+            });
+            location.reload()
+        }
+    </script>
+
+
+
+    <script>
+        function actionFormatter(value) {
+
+            var editUrl = "{{ path('app_reservation_edit', {'id': 'monId', 'by': 'prog'}) }}";
+            editUrl = editUrl.replace("monId",value);
+            var buttonEdit =  '<a class="btn btn-info"  data-position="top" data-alignment="center" href="' + editUrl + '">Modifier</a>';
+
+            return buttonEdit /*+ spanCtrl + button + modalShow + closeSpan*/;
+        }
+
+
+
+    </script>
+{% endblock %}

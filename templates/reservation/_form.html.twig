@@ -1,0 +1,92 @@
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+{{ form_start(form) }}
+{% set formErrors = form.vars.errors.form.getErrors(true) %}
+
+{% if formErrors|length %}
+    <span style="color: red">Erreur(s) détectée(s)</span>
+    <ul>
+        {% for error in formErrors %}
+            <li style="color: red">{{ error.message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% if form.salles is defined %}
+    <div class="card" style="width: 72rem;">
+        <div class="card-header text-primary">
+            <h1>Partie prog</h1>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{ form_row(form.salles) }}</li>
+        </ul>
+    </div>
+{% endif %}
+
+<div class="card" style="width: 72rem;">
+    <div class="card-header text-primary">
+        <h1>Administration</h1>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{ form_row(form.collectif) }}</li>
+        <li id="collectif_abreviation"></li>
+
+        <li class="list-group-item">{{ form_row(form.personnepresente) }}</li>
+        <li class="list-group-item">{{ form_row(form.refbase) }}</li>
+        <li class="list-group-item">{{ form_row(form.mailreservation) }}</li>
+
+        <li class="list-group-item">{{ form_row(form.email) }}</li>
+    </ul>
+</div>
+<div class="card" style="width: 72rem;">
+    <div class="card-header text-primary">
+        <h1>Evènement</h1>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{ form_row(form.titre) }}</li>
+        <li class="list-group-item">{{ form_row(form.typereservation) }}</li>
+        <li class="list-group-item">{{ form_row(form.objectifs) }}</li>
+        <li class="list-group-item">{{ form_row(form.description) }}</li>
+        <li class="list-group-item">{{ form_row(form.datedebut) }}</li>
+
+        <li class="list-group-item">{{ form_row(form.datefin) }}</li>
+
+        <li class="list-group-item">{{ form_row(form.autredate) }}</li>
+
+    </ul>
+</div>
+<div class="card" style="width: 72rem;">
+    <div class="card-header text-primary">
+        <h1>Logistique</h1>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{ form_row(form.nbpersonne) }}</li>
+        <li class="list-group-item">{{ form_row(form.gratuit) }}</li>
+        <li class="list-group-item">{{ form_row(form.besoins) }}</li>
+        <li class="list-group-item">{{ form_row(form.autrebesoin) }}</li>
+        <li class="list-group-item">{{ form_row(form.besoinbar) }}</li>
+        <li class="list-group-item">{{ form_row(form.autreinfo) }}</li>
+    </ul>
+</div>
+<div class="card" style="width: 72rem;">
+    <div class="card-header text-primary">
+        <h1>Communication</h1>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{ form_row(form.statutevent) }}</li>
+        <li class="list-group-item">{{ form_row(form.comm) }}</li>
+
+        <div id="listecomm">
+            <li class="list-group-item">{{ form_row(form.formulation) }}</li>
+            <li class="list-group-item">{{ form_row(form.doc1File) }}</li>
+            <li class="list-group-item">{{ form_row(form.doc2File) }}</li>
+            <li class="list-group-item">{{ form_row(form.doc3File) }}</li>
+        </div>
+    </ul>
+</div>
+<button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+{% if form.salles is defined %}
+    <a class="btn btn-info" href="{{ path('app_reservation_index') }}">Retour</a>
+{% else %}
+    <a class="btn btn-info" href="{{ path('app_user_show') }}">Retour</a>
+{% endif %}
+{{ form_end(form) }}
