@@ -6,15 +6,15 @@
   "require": {
     "php": ">=8.1",
     "ext-ctype": "*",
+    "amu/role-bundle": "dev-main",
     "ext-iconv": "*",
-    "amu/cas-bundle": "^4.0",
-    "amu/role-bundle": "^4.0",
     "doctrine/annotations": "^1.0",
     "doctrine/doctrine-bundle": "^2.8",
     "doctrine/doctrine-migrations-bundle": "^3.2",
     "doctrine/orm": "^2.14",
     "friendsofsymfony/ckeditor-bundle": "^2.4",
     "knplabs/knp-menu-bundle": "^3.2",
+    "loophp/psr-http-message-bridge-bundle": "*",
     "phpdocumentor/reflection-docblock": "^5.3",
     "phpstan/phpdoc-parser": "^1.16",
     "symfony/asset": "6.3.*",
@@ -52,16 +52,8 @@
   },
   "repositories": [
     {
-      "type": "git",
-      "url": "ssh://git@carpe-koi.univ-amu.fr/amu-svc-dosi-dvpt-tous/amu-svc-dosi-dvpt-php/bundles/rolebundle.git"
-    },
-    {
-      "type": "git",
-      "url": "ssh://git@carpe-koi.univ-amu.fr/amu-svc-dosi-dvpt-tous/amu-svc-dosi-dvpt-php/bundles/casbundle.git"
-    },
-    {
-      "type": "git",
-      "url": "ssh://git@carpe-koi.univ-amu.fr/amu-svc-dosi-dvpt-tous/amu-svc-dosi-dvpt-php/bundles/siamumaintenancebundle.git"
+      "type": "path",
+      "url": "amu/role-bundle"
     }
   ],
   "config": {
